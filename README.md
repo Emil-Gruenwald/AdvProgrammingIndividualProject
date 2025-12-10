@@ -1,3 +1,3 @@
 # Physics Calculator
 
-This project will be a calculator/simulation for mechanics. You will be able to add different objects and forces and watch the simulation run. The simulation can be paused and unpaused to make edits. You will also be able to see different values of each object/force.
+This project will be a calculator/simulation for mechanics in physics. You will be able to add different objects and forces and watch the simulation run. The simulation can be paused and unpaused to make edits. You will also be able to see different values of each object/force. You can have both static and dynamic objects that can be edited in many ways, such as mass, size, and shape. You will also be able to add connectors between objects so they move together, and also springs. You can also add custom forces to influence the objects movements at any time, or you can manually move them.
