@@ -1,25 +1,26 @@
-public class PhysicsCalculator extends PApplet {
-    public static void main(String[] args) {
-        boolean isPaused = true;
-        ArrayList<Force> forces = new ArrayList<>();
-        ArrayList<Object> objects = new ArrayList<>();
-    }
+boolean isPaused = true;
+ArrayList<Force> forces = new ArrayList<>();
+ArrayList<Object> objects = new ArrayList<>();
 
-    public void settings() {
-        // Set up the window size
-        size(500, 500, P3D);
-    }
 
-    public void setup() {
-        // Set initial background color
-        background(255);
-    }
+public void settings() {
+  size(640, 360, P3D);
+}
 
-    public void draw() {
-        // Draw a moving circle
-        background(255);
-        fill(255, 0, 0);
-        translate(mouseX, mouseY, 0);
-        ellipse(0, 0, 50, 50);
-    }
+public void setup() {
+  background(0);
+  lights();
+}
+
+public void draw() {
+  background(0);
+  lights();
+  fill(255);
+  pushMatrix();
+  translate(130, height/2, 0);
+  rotateY(1.25);
+  rotateX(-0.4);
+  noStroke();
+  box(100);
+  popMatrix();
 }
