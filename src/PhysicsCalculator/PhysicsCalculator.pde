@@ -9,7 +9,6 @@ public void settings() {
 
 public void setup() {
   background(0);
-  lights();
 }
 
 public void draw() {
