@@ -9,6 +9,8 @@ public void settings() {
 
 public void setup() {
   background(0);
+  surface.setResizable(true);
+  surface.setLocation(100, 100);
 }
 
 public void draw() {
