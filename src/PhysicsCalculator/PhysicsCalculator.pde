@@ -4,10 +4,13 @@ boolean pauseScreen = true;
 boolean isPaused = true;
 ArrayList<Force> forces = new ArrayList<>();
 ArrayList<Object> objects = new ArrayList<>();
+ArrayList<Button> pauseButtons = new ArrayList<>();
 
 
 public void settings() {
-  size(640, 360, P3D);
+  //size(640, 360, P3D);
+  fullScreen(P3D);
+  noSmooth();
   pixelDensity(2);
 }
 
@@ -15,6 +18,8 @@ public void setup() {
   background(0);
   surface.setResizable(true);
   logo = loadImage("Logo.png");
+  pauseButtons.add(new Button(10, 350, 200, 40, "Run Simulation"));
+  pauseButtons.add(new Button(10, 400, 200, 40, "Settings"));
 }
 
 public void draw() {
@@ -28,11 +33,17 @@ public void draw() {
 public void displayPauseScreen() {
   background(0);
   fill(255);
-  textAlign(CENTER, CENTER);
-  textSize(32);
-  text("Click to Start Simulation", width / 2, height / 2);
-  logo.resize(width/3, 0);
-  image(logo, 10, 10);
+  logo = loadImage("Logo.png");
+  logo.resize(width,height);
+  image(logo, 0, 0);
+  for (Button b : pauseButtons) {
+    b.update();
+    b.display();
+    if (b.isClicked() && b.label.equals("Run Simulation")) {
+      pauseScreen = false;
+      isPaused = false;
+    }
+  }
 }
 public void displaySimulation() {
   
@@ -49,9 +60,3 @@ public void displaySimulation() {
 
 }
 
-public void mousePressed() {
-  if (pauseScreen) {
-    pauseScreen = false;
-    isPaused = false;
-  }
-}
