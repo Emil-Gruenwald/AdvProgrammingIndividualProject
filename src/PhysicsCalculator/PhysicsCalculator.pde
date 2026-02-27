@@ -19,6 +19,7 @@ void settings() {
 
 void setup() {
   background(0);
+  frameRate(60);
   surface.setResizable(true);
   logo = loadImage("Logo.png");
   pauseButtons.add(new Button(10, 350, 200, 40, "Run Simulation"));
@@ -63,7 +64,7 @@ void displaySimulation() {
   if (keysPressed.contains('K')) camRotX += 0.05;
   if (keysPressed.contains('J')) camRotY -= 0.05;
   if (keysPressed.contains('L')) camRotY += 0.05;
-  
+
   camera(camX, camY, camZ, camRotX, camRotY, 0, 0, 1, 0);
   pushMatrix();
   translate(130, height/2, 0);
