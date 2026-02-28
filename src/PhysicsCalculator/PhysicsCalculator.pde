@@ -8,7 +8,7 @@ ArrayList<Button> pauseButtons = new ArrayList<>();
 
 ArrayList<Character> keysPressed = new ArrayList<>();
 
-int camX, camY, camZ, camRotX, camRotY;
+float camX, camY, camZ, camRotX, camRotY;
 
 void settings() {
   //size(640, 360, P3D);
@@ -18,7 +18,7 @@ void settings() {
 }
 
 void setup() {
-  background(0);
+  background(100);
   frameRate(60);
   surface.setResizable(true);
   logo = loadImage("Logo.png");
@@ -35,10 +35,10 @@ void draw() {
 }
 
 void displayPauseScreen() {
-  background(0);
+  background(100);
   fill(255);
   logo = loadImage("Logo.png");
-  logo.resize(width,height);
+  logo.resize(width, height);
   image(logo, 0, 0);
   for (Button b : pauseButtons) {
     b.update();
@@ -50,22 +50,42 @@ void displayPauseScreen() {
   }
 }
 void displaySimulation() {
-  background(0);
+  background(100);
   lights();
   fill(255);
 
-  if (keysPressed.contains('W')) camZ -= 5;
-  if (keysPressed.contains('S')) camZ += 5;
-  if (keysPressed.contains('A')) camX -= 5;
-  if (keysPressed.contains('D')) camX += 5;
-  if (keysPressed.contains('Q')) camY -= 5;
-  if (keysPressed.contains('E')) camY += 5;
-  if (keysPressed.contains('I')) camRotX -= 0.05;
-  if (keysPressed.contains('K')) camRotX += 0.05;
-  if (keysPressed.contains('J')) camRotY -= 0.05;
-  if (keysPressed.contains('L')) camRotY += 0.05;
+  if (keysPressed.contains('W')) {
+    camX += 5 * sin(camRotY);
+    camZ += 5 * cos(camRotY);
+  }
+  if (keysPressed.contains('S')) {
+    camX -= 5 * sin(camRotY);
+    camZ -= 5 * cos(camRotY);
+  }
+  if (keysPressed.contains('A')) {
+    camX += 5 * cos(camRotY);
+    camZ -= 5 * sin(camRotY);
+  }
+  if (keysPressed.contains('D')) {
+    camX -= 5 * cos(camRotY);
+    camZ += 5 * sin(camRotY);
+  }
 
-  camera(camX, camY, camZ, camRotX, camRotY, 0, 0, 1, 0);
+  if (keysPressed.contains(' ')) camY -= 5;
+  if (keysPressed.contains('⇧')) camY += 5;
+
+  if (keysPressed.contains('I')) camRotX += .05;
+  if (keysPressed.contains('K')) camRotX -= .05;
+  if (keysPressed.contains('J')) camRotY += .05;
+  if (keysPressed.contains('L')) camRotY -= .05;
+
+  if (camRotY > 2*PI) camRotY -= 2*PI;
+  if (camRotY < 0) camRotY += 2*PI;
+  if (camRotX >= PI/2) camRotX = PI/2 - 0.01;
+  if (camRotX <= -PI/2) camRotX = -PI/2 + 0.01;
+
+  camera(camX, camY, camZ, camX + cos(camRotX) * sin(camRotY), camY + sin(camRotX), camZ + cos(camRotX) * cos(camRotY), 0, 1, 0);
+
   pushMatrix();
   translate(130, height/2, 0);
   rotateY(1.25);
@@ -78,10 +98,30 @@ void displaySimulation() {
 }
 
 void displayGrid() {
-  stroke(255);
-  for (int i = -500; i <= 500; i += 50) {
-    line(i, 0, -500, i, 0, 500);
-    line(-500, 0, i, 500, 0, i); 
+  stroke(200, 20);
+  line(0, -3000, 0, 0, 3000, 0);
+
+  float gridRadius = 3000;
+  float step = 50;
+
+  float startX = camX - gridRadius;
+  startX -= startX % step;
+  float endX = camX + gridRadius;
+  endX -= endX % step;
+
+  float startZ = camZ - gridRadius;
+  startZ -= startZ % step;
+  float endZ = camZ + gridRadius;
+  endZ -= endZ % step;
+
+  for (float x = startX; x <= endX; x += step) {
+    stroke(200, map(abs(x - camX), 0, gridRadius, 20, -10));
+    line(x, 0, startZ, x, 0, endZ);
+  }
+
+  for (float z = startZ; z <= endZ; z += step) {
+    stroke(200, map(abs(z - camZ), 0, gridRadius, 20, -10));
+    line(startX, 0, z, endX, 0, z);
   }
 }
 
@@ -90,9 +130,36 @@ void keyPressed() {
   if (!keysPressed.contains(upperKey)) {
     keysPressed.add(upperKey);
   }
+  if (keyCode == ENTER) {
+    if (pauseScreen) {
+      pauseScreen = false;
+      isPaused = false;
+    }
+  }
+  if (keyCode == ESC) {
+    if (!pauseScreen) {
+      pauseScreen = true;
+      isPaused = true;
+    } else {
+      exit();
+    }
+  }
+  if (keyCode == SHIFT) {
+    keysPressed.add('⇧');
+  }
 }
 
 void keyReleased() {
   char upperKey = Character.toUpperCase(key);
   keysPressed.remove(Character.valueOf(upperKey));
+  if (keyCode == SHIFT) {
+    keysPressed.remove(Character.valueOf('⇧'));
+  }
+}
+
+void mouseDragged() {
+  if (!pauseScreen) {
+    camRotY += (pmouseX - mouseX) * 0.005;
+    camRotX += (pmouseY - mouseY) * -0.005;
+  }
 }
