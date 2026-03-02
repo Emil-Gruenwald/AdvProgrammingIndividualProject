@@ -1,8 +1,7 @@
 public class AddedForce extends Force {
-    float x, y;
+    float locX, locY, locZ;
 
     @Override
     public void applyForce(Object o) {
-
     }
 }

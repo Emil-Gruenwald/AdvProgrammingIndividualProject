@@ -1,5 +1,13 @@
 public class StaticObject extends Object {
-    public boolean collide(Object o) {
-        return false;
-    }
+  StaticObject(float x, float y, float z, float w, float h, float d, float rotX, float rotY, float rotZ) {
+    this.x = x;
+    this.y = y;
+    this.z = z;
+    this.w = w;
+    this.h = h;
+    this.d = d;
+    this.rotY = rotY;
+    this.rotX = rotX;
+    this.rotZ = rotZ;
+  }
 }

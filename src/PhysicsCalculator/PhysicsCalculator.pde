@@ -27,6 +27,8 @@ void setup() {
   pauseButtons.add(new Button(10, 350, 200, 40, "Run Simulation"));
   pauseButtons.add(new Button(10, 400, 200, 40, "Settings"));
   pauseButtons.add(new Button(10, 450, 200, 40, "Exit"));
+
+  objects.add(new StaticObject(0, 0, 0, 1000, 0, 1000, 0, 0, 0));
 }
 
 void draw() {
@@ -79,13 +81,9 @@ void displaySimulation() {
   lights();
   fill(255);
 
-  pushMatrix();
-  translate(130, height/2, 0);
-  rotateY(1.25);
-  rotateX(-0.4);
-  noStroke();
-  box(100);
-  popMatrix();
+  for (Object o : objects) {
+    o.display();
+  }
 
   displayGrid();
 
