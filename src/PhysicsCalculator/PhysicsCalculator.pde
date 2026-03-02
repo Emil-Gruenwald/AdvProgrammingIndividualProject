@@ -1,5 +1,7 @@
 PImage logo = new PImage();
 
+HUD hud = new HUD();
+
 boolean pauseScreen = true;
 boolean isPaused = true;
 ArrayList<Force> forces = new ArrayList<>();
@@ -14,7 +16,7 @@ void settings() {
   //size(640, 360, P3D);
   fullScreen(P3D);
   noSmooth();
-  pixelDensity(2);
+  // pixelDensity(2);
 }
 
 void setup() {
@@ -24,32 +26,17 @@ void setup() {
   logo = loadImage("Logo.png");
   pauseButtons.add(new Button(10, 350, 200, 40, "Run Simulation"));
   pauseButtons.add(new Button(10, 400, 200, 40, "Settings"));
+  pauseButtons.add(new Button(10, 450, 200, 40, "Exit"));
 }
 
 void draw() {
   if (pauseScreen) {
-    displayPauseScreen();
+    hud.displayPauseScreen(pauseButtons);
   } else {
     if (!isPaused) {
       updateSimulation();
     }
     displaySimulation();
-  }
-}
-
-void displayPauseScreen() {
-  background(100);
-  fill(255);
-  logo = loadImage("Logo.png");
-  logo.resize(width, height);
-  image(logo, 0, 0);
-  for (Button b : pauseButtons) {
-    b.update();
-    b.display();
-    if (b.isClicked() && b.label.equals("Run Simulation")) {
-      pauseScreen = false;
-      isPaused = false;
-    }
   }
 }
 
@@ -102,7 +89,7 @@ void displaySimulation() {
 
   displayGrid();
 
-  HUD.display(this, isPaused);
+  hud.displaySimulation(isPaused);
 }
 
 void displayGrid() {
