@@ -30,6 +30,9 @@ void draw() {
   if (pauseScreen) {
     displayPauseScreen();
   } else {
+    if (!isPaused) {
+      updateSimulation();
+    }
     displaySimulation();
   }
 }
@@ -49,11 +52,8 @@ void displayPauseScreen() {
     }
   }
 }
-void displaySimulation() {
-  background(100);
-  lights();
-  fill(255);
 
+void updateSimulation() {
   if (keysPressed.contains('W')) {
     camX += 5 * sin(camRotY);
     camZ += 5 * cos(camRotY);
@@ -85,6 +85,12 @@ void displaySimulation() {
   if (camRotX <= -PI/2) camRotX = -PI/2 + 0.01;
 
   camera(camX, camY, camZ, camX + cos(camRotX) * sin(camRotY), camY + sin(camRotX), camZ + cos(camRotX) * cos(camRotY), 0, 1, 0);
+}
+
+void displaySimulation() {
+  background(100);
+  lights();
+  fill(255);
 
   pushMatrix();
   translate(130, height/2, 0);
@@ -95,6 +101,8 @@ void displaySimulation() {
   popMatrix();
 
   displayGrid();
+
+  HUD.display(this, isPaused);
 }
 
 void displayGrid() {
@@ -137,6 +145,7 @@ void keyPressed() {
     }
   }
   if (keyCode == ESC) {
+    key = 0;
     if (!pauseScreen) {
       pauseScreen = true;
       isPaused = true;
@@ -146,6 +155,9 @@ void keyPressed() {
   }
   if (keyCode == SHIFT) {
     keysPressed.add('⇧');
+  }
+  if ((key == 'P' || key == 'p') && !pauseScreen) {
+    isPaused = !isPaused;
   }
 }
 
@@ -158,7 +170,7 @@ void keyReleased() {
 }
 
 void mouseDragged() {
-  if (!pauseScreen) {
+  if (!pauseScreen && !isPaused) {
     camRotY += (pmouseX - mouseX) * 0.005;
     camRotX += (pmouseY - mouseY) * -0.005;
   }
