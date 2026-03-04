@@ -12,11 +12,13 @@ public class Button {
     }
 
     void display() {
+        stroke(0);
         fill(hovered ? 150 : 200);
         rect(x, y, w, h);
         fill(0);
         textAlign(CENTER, CENTER);
         text(label, x + w / 2, y + h / 2);
+        noStroke();
     }
 
     void update() {

@@ -1,5 +1,5 @@
 public class HUD {
-  void displaySimulation(ArrayList<Button> simulationButtons, boolean isPaused) {
+  void displaySimulation(ArrayList<Button> simulationButtons, Dropdown addDropdown, boolean isPaused) {
     pushMatrix();
     camera();
     noLights();
@@ -21,6 +21,9 @@ public class HUD {
         
       }
     }
+
+    addDropdown.update();
+    addDropdown.display();
 
     hint(PApplet.ENABLE_DEPTH_TEST);
     popMatrix();
@@ -47,6 +50,38 @@ public class HUD {
       } else if (b.isClicked() && b.label.equals("Exit")) {
         exit();
       }
+    }
+    hint(PApplet.ENABLE_DEPTH_TEST);
+    popMatrix();
+  }
+
+  void displayMenu(ArrayList<Button> menuButtons) {
+    pushMatrix();
+    camera();
+    hint(PApplet.DISABLE_DEPTH_TEST);
+
+    background(100);
+    fill(255, 150);
+    rect(0, 0, width, height);
+    for (Button b : menuButtons) {
+      b.update();
+      b.display();
+    }
+    hint(PApplet.ENABLE_DEPTH_TEST);
+    popMatrix();
+  }
+
+  void displaySettings(ArrayList<Button> settingsButtons) {
+    pushMatrix();
+    camera();
+    hint(PApplet.DISABLE_DEPTH_TEST);
+
+    background(100);
+    fill(255, 150);
+    rect(0, 0, width, height);
+    for (Button b : settingsButtons) {
+      b.update();
+      b.display();
     }
     hint(PApplet.ENABLE_DEPTH_TEST);
     popMatrix();

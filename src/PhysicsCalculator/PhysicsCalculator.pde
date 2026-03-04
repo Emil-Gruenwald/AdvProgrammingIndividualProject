@@ -4,6 +4,9 @@ HUD hud = new HUD();
 
 boolean pauseScreen = true;
 boolean isPaused = true;
+boolean settingsScreen = false;
+boolean menuScreen = false;
+boolean simulationScreen = false;
 ArrayList<Force> forces = new ArrayList<>();
 ArrayList<Object> objects = new ArrayList<>();
 ArrayList<Button> pauseButtons = new ArrayList<>();
@@ -12,6 +15,8 @@ ArrayList<Button> settingsButtons = new ArrayList<>();
 ArrayList<Button> menuButtons = new ArrayList<>();
 
 ArrayList<Character> keysPressed = new ArrayList<>();
+
+Dropdown addDropdown = new Dropdown(70, 10, 100, 40, "Add ⌄");
 
 float camX, camY, camZ, camRotX, camRotY;
 
@@ -31,14 +36,20 @@ void setup() {
   pauseButtons.add(new Button(10, 400, 200, 40, "Settings"));
   pauseButtons.add(new Button(10, 450, 200, 40, "Exit"));
 
-  simulationButtons.add(new Button(10, 10, 50, 40, "Add"));
+  addDropdown.addOption("Dynamic Object");
+  addDropdown.addOption("Static Object");
+  addDropdown.addOption("Force");
 
   objects.add(new StaticObject(0, 0, 0, 1000, 0, 1000, 0, 0, 0));
 }
 
 void draw() {
-  if (pauseScreen) {
+  if (settingsScreen) {
+    hud.displaySettings(settingsButtons);
+  } else if (pauseScreen) {
     hud.displayPauseScreen(pauseButtons);
+  } else if (menuScreen) {
+    hud.displayMenu(menuButtons);
   } else {
     if (!isPaused) {
       updateSimulation();
@@ -92,7 +103,7 @@ void displaySimulation() {
 
   displayGrid();
 
-  hud.displaySimulation(simulationButtons, isPaused);
+  hud.displaySimulation(simulationButtons, addDropdown, isPaused);
 }
 
 void displayGrid() {
@@ -137,8 +148,17 @@ void keyPressed() {
   if (keyCode == ESC) {
     key = 0;
     if (!pauseScreen) {
-      pauseScreen = true;
-      isPaused = true;
+      if (simulationScreen) {
+        simulationScreen = false;
+        menuScreen = true;
+        isPaused = true;
+      } else if (settingsScreen) {
+        settingsScreen = false;
+      } else if (menuScreen) {
+        menuScreen = false;
+        simulationScreen = true;
+        isPaused = false;
+      }
     } else {
       exit();
     }
@@ -146,7 +166,7 @@ void keyPressed() {
   if (keyCode == SHIFT) {
     keysPressed.add('⇧');
   }
-  if ((key == 'P' || key == 'p') && !pauseScreen) {
+  if ((key == 'P' || key == 'p') && simulationScreen) {
     isPaused = !isPaused;
   }
 }
