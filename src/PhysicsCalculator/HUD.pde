@@ -2,6 +2,7 @@ public class HUD {
   void displaySimulation(ArrayList<Button> simulationButtons, boolean isPaused) {
     pushMatrix();
     camera();
+    noLights();
     hint(PApplet.DISABLE_DEPTH_TEST);
 
     if (isPaused) {

@@ -12,7 +12,7 @@ public class Button {
     }
 
     void display() {
-        fill(hovered ? 200 : 255);
+        fill(hovered ? 150 : 200);
         rect(x, y, w, h);
         fill(0);
         textAlign(CENTER, CENTER);
