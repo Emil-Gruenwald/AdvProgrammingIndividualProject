@@ -1,5 +1,5 @@
 public class HUD {
-  void displaySimulation(boolean isPaused) {
+  void displaySimulation(ArrayList<Button> simulationButtons, boolean isPaused) {
     pushMatrix();
     camera();
     hint(PApplet.DISABLE_DEPTH_TEST);
@@ -11,6 +11,14 @@ public class HUD {
       fill(0);
       rect(width - 40, 20, 5, 20);
       rect(width - 25, 20, 5, 20);
+    }
+
+    for (Button b : simulationButtons) {
+      b.update();
+      b.display();
+      if (b.isClicked() && b.label.equals("Add")) {
+        
+      }
     }
 
     hint(PApplet.ENABLE_DEPTH_TEST);

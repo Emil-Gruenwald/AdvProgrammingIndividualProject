@@ -7,6 +7,9 @@ boolean isPaused = true;
 ArrayList<Force> forces = new ArrayList<>();
 ArrayList<Object> objects = new ArrayList<>();
 ArrayList<Button> pauseButtons = new ArrayList<>();
+ArrayList<Button> simulationButtons = new ArrayList<>();
+ArrayList<Button> settingsButtons = new ArrayList<>();
+ArrayList<Button> menuButtons = new ArrayList<>();
 
 ArrayList<Character> keysPressed = new ArrayList<>();
 
@@ -27,6 +30,8 @@ void setup() {
   pauseButtons.add(new Button(10, 350, 200, 40, "Run Simulation"));
   pauseButtons.add(new Button(10, 400, 200, 40, "Settings"));
   pauseButtons.add(new Button(10, 450, 200, 40, "Exit"));
+
+  simulationButtons.add(new Button(10, 10, 50, 40, "Add"));
 
   objects.add(new StaticObject(0, 0, 0, 1000, 0, 1000, 0, 0, 0));
 }
@@ -87,7 +92,7 @@ void displaySimulation() {
 
   displayGrid();
 
-  hud.displaySimulation(isPaused);
+  hud.displaySimulation(simulationButtons, isPaused);
 }
 
 void displayGrid() {
