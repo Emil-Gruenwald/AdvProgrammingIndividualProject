@@ -26,6 +26,6 @@ public class Button {
     }
 
     boolean isClicked() {
-        return hovered && mousePressed;
+        return hovered && mouseJustReleased;
     }
 }

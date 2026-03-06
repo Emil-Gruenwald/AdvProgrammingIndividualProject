@@ -22,6 +22,8 @@ String previousScreen = "pause";
 
 float camX, camY, camZ, camRotX, camRotY;
 
+boolean mouseJustReleased = false;
+
 void settings() {
   //size(640, 360, P3D);
   fullScreen(P3D);
@@ -64,6 +66,7 @@ void draw() {
     }
     displaySimulation();
   }
+  mouseJustReleased = false;
 }
 
 void updateSimulation() {
@@ -192,6 +195,10 @@ void keyReleased() {
 
 void mousePressed() {
   addDropdown.press();
+}
+
+void mouseReleased() {
+  mouseJustReleased = true;
 }
 
 void mouseDragged() {
