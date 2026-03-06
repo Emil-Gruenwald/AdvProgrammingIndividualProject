@@ -35,16 +35,22 @@ class Dropdown {
     }
 
     void update() {
-        if (mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h) {
-            if (mousePressed) {
-                isOpen = !isOpen;
-            }
-        }
+        // if (mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h) {
+        //     if (mousePressed) {
+        //         isOpen = !isOpen;
+        //     }
+        // }
 
         if (isOpen) {
             for (Button option : options) {
                 option.update();
             }
+        }
+    }
+
+    void press() {
+        if (mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h) {
+            isOpen = !isOpen;
         }
     }
 }

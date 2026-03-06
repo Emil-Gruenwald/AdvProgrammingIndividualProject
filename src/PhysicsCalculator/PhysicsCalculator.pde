@@ -181,6 +181,10 @@ void keyReleased() {
   }
 }
 
+void mousePressed() {
+  addDropdown.press();
+}
+
 void mouseDragged() {
   if (!pauseScreen && !isPaused) {
     camRotY += (pmouseX - mouseX) * 0.005;
