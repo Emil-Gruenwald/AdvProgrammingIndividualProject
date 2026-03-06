@@ -63,8 +63,9 @@ public class HUD {
     camera();
     hint(PApplet.DISABLE_DEPTH_TEST);
 
-    fill(100, 20);
-    rect(0, 0, width, height);
+    // fill(100, 20);
+    // rect(0, 0, width, height);
+
     for (Button b : menuButtons) {
       b.update();
       b.display();
