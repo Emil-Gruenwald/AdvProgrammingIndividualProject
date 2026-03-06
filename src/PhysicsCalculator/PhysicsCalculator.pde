@@ -57,14 +57,14 @@ void draw() {
   } else if (pauseScreen) {
     hud.displayPauseScreen(pauseButtons);
   } else if (menuScreen) {
-    displaySimulation();
+    displaySimulation(false);
     hud.displayMenu(menuButtons);
   } else if (simulationScreen) {
     background(100);
     if (!isPaused) {
       updateSimulation();
     }
-    displaySimulation();
+    displaySimulation(true);
   }
   mouseJustReleased = false;
 }
@@ -103,7 +103,7 @@ void updateSimulation() {
   camera(camX, camY, camZ, camX + cos(camRotX) * sin(camRotY), camY + sin(camRotX), camZ + cos(camRotX) * cos(camRotY), 0, 1, 0);
 }
 
-void displaySimulation() {
+void displaySimulation(boolean updateHUD) {
   //lights();
   fill(150);
 
@@ -113,7 +113,9 @@ void displaySimulation() {
 
   displayGrid();
 
-  hud.displaySimulation(simulationButtons, addDropdown, isPaused);
+  if (updateHUD) {
+    hud.displaySimulation(simulationButtons, addDropdown, isPaused);
+  }
 }
 
 void displayGrid() {
