@@ -49,6 +49,8 @@ void draw() {
   } else if (pauseScreen) {
     hud.displayPauseScreen(pauseButtons);
   } else if (menuScreen) {
+    background(100);
+    displaySimulation();
     hud.displayMenu(menuButtons);
   } else {
     if (!isPaused) {

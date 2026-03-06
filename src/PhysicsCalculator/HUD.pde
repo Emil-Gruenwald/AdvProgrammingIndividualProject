@@ -46,7 +46,7 @@ public class HUD {
         pauseScreen = false;
         isPaused = false;
       } else if (b.isClicked() && b.label.equals("Settings")) {
-        
+        settingsScreen = true;
       } else if (b.isClicked() && b.label.equals("Exit")) {
         exit();
       }
@@ -60,7 +60,6 @@ public class HUD {
     camera();
     hint(PApplet.DISABLE_DEPTH_TEST);
 
-    background(100);
     fill(255, 150);
     rect(0, 0, width, height);
     for (Button b : menuButtons) {
@@ -77,8 +76,6 @@ public class HUD {
     hint(PApplet.DISABLE_DEPTH_TEST);
 
     background(100);
-    fill(255, 150);
-    rect(0, 0, width, height);
     for (Button b : settingsButtons) {
       b.update();
       b.display();
