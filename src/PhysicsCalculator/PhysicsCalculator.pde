@@ -102,7 +102,7 @@ void updateSimulation() {
 
 void displaySimulation() {
   //lights();
-  fill(200);
+  fill(150);
 
   for (Object o : objects) {
     o.display();
