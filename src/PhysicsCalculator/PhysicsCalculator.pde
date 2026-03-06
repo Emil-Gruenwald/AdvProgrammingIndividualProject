@@ -46,6 +46,7 @@ void setup() {
   menuButtons.add(new Button(10, 450, 200, 40, "Exit"));
 
   objects.add(new StaticObject(0, 0, 0, 1000, 0, 1000, 0, 0, 0));
+  objects.add(new DynamicObject(0, -100, 0, 50, 50, 50, 0, 0, 0));
 }
 
 void draw() {
@@ -100,8 +101,8 @@ void updateSimulation() {
 }
 
 void displaySimulation() {
-  lights();
-  fill(255);
+  //lights();
+  fill(200);
 
   for (Object o : objects) {
     o.display();
