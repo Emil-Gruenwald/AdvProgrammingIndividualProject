@@ -18,6 +18,8 @@ ArrayList<Character> keysPressed = new ArrayList<>();
 
 Dropdown addDropdown = new Dropdown(70, 10, 100, 40, "Add ⌄");
 
+String previousScreen = "pause";
+
 float camX, camY, camZ, camRotX, camRotY;
 
 void settings() {
@@ -40,6 +42,9 @@ void setup() {
   addDropdown.addOption("Static Object");
   addDropdown.addOption("Force");
 
+  menuButtons.add(new Button(10, 400, 200, 40, "Settings"));
+  menuButtons.add(new Button(10, 450, 200, 40, "Exit"));
+
   objects.add(new StaticObject(0, 0, 0, 1000, 0, 1000, 0, 0, 0));
 }
 
@@ -49,10 +54,10 @@ void draw() {
   } else if (pauseScreen) {
     hud.displayPauseScreen(pauseButtons);
   } else if (menuScreen) {
-    background(100);
     displaySimulation();
     hud.displayMenu(menuButtons);
-  } else {
+  } else if (simulationScreen) {
+    background(100);
     if (!isPaused) {
       updateSimulation();
     }
@@ -95,7 +100,6 @@ void updateSimulation() {
 }
 
 void displaySimulation() {
-  background(100);
   lights();
   fill(255);
 
@@ -144,25 +148,29 @@ void keyPressed() {
   if (keyCode == ENTER) {
     if (pauseScreen) {
       pauseScreen = false;
+      simulationScreen = true;
       isPaused = false;
     }
   }
   if (keyCode == ESC) {
     key = 0;
-    if (!pauseScreen) {
-      if (simulationScreen) {
-        simulationScreen = false;
-        menuScreen = true;
-        isPaused = true;
-      } else if (settingsScreen) {
-        settingsScreen = false;
-      } else if (menuScreen) {
-        menuScreen = false;
-        simulationScreen = true;
-        isPaused = false;
-      }
-    } else {
+    if (pauseScreen) {
       exit();
+    } else if (simulationScreen) {
+      simulationScreen = false;
+      menuScreen = true;
+      isPaused = true;
+    } else if (menuScreen) {
+      menuScreen = false;
+      simulationScreen = true;
+      isPaused = false;
+    } else if (settingsScreen) {
+      settingsScreen = false;
+      if (previousScreen.equals("pause")) {
+        pauseScreen = true;
+      } else if (previousScreen.equals("menu")) {
+        menuScreen = true;
+      }
     }
   }
   if (keyCode == SHIFT) {
@@ -186,7 +194,7 @@ void mousePressed() {
 }
 
 void mouseDragged() {
-  if (!pauseScreen && !isPaused) {
+  if (simulationScreen && !isPaused) {
     camRotY += (pmouseX - mouseX) * 0.005;
     camRotX += (pmouseY - mouseY) * -0.005;
   }

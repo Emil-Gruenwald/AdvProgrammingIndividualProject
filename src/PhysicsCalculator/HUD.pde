@@ -44,9 +44,12 @@ public class HUD {
       b.display();
       if (b.isClicked() && b.label.equals("Run Simulation")) {
         pauseScreen = false;
+        simulationScreen = true;
         isPaused = false;
       } else if (b.isClicked() && b.label.equals("Settings")) {
+        previousScreen = "pause";
         settingsScreen = true;
+        pauseScreen = false;
       } else if (b.isClicked() && b.label.equals("Exit")) {
         exit();
       }
@@ -60,11 +63,20 @@ public class HUD {
     camera();
     hint(PApplet.DISABLE_DEPTH_TEST);
 
-    fill(255, 150);
+    fill(100, 20);
     rect(0, 0, width, height);
     for (Button b : menuButtons) {
       b.update();
       b.display();
+      if (b.isClicked() && b.label.equals("Settings")) {
+        previousScreen = "menu";
+        settingsScreen = true;
+        menuScreen = false;
+      }
+      if (b.isClicked() && b.label.equals("Exit")) {
+        menuScreen = false;
+        pauseScreen = true;
+      }
     }
     hint(PApplet.ENABLE_DEPTH_TEST);
     popMatrix();
