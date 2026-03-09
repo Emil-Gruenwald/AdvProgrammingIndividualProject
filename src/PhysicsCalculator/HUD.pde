@@ -99,6 +99,8 @@ public class HUD {
     textSize(20);
     text("Settings", 50, 25);
     textSize(12);
+    timeStepSlider.update();
+    timeStepSlider.display();
     for (Button b : settingsButtons) {
       b.update();
       b.display();
