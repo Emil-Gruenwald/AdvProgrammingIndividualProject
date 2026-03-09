@@ -63,8 +63,13 @@ public class HUD {
     camera();
     hint(PApplet.DISABLE_DEPTH_TEST);
 
-    // fill(100, 20);
-    // rect(0, 0, width, height);
+    fill(125);
+    rect(10, 10, 300, 200);
+
+    fill(0);
+    textSize(20);
+    text("Paused", 50, 25);
+    textSize(12);
 
     for (Button b : menuButtons) {
       b.update();
@@ -89,6 +94,11 @@ public class HUD {
     hint(PApplet.DISABLE_DEPTH_TEST);
 
     background(100);
+
+    fill(0);
+    textSize(20);
+    text("Settings", 50, 25);
+    textSize(12);
     for (Button b : settingsButtons) {
       b.update();
       b.display();

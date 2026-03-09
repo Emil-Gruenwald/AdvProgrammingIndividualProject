@@ -36,6 +36,9 @@ void setup() {
   frameRate(60);
   surface.setResizable(true);
   logo = loadImage("Logo.png");
+  textAlign(CENTER);
+  textSize(12);
+  noStroke();
   pauseButtons.add(new Button(10, 350, 200, 40, "Run Simulation"));
   pauseButtons.add(new Button(10, 400, 200, 40, "Settings"));
   pauseButtons.add(new Button(10, 450, 200, 40, "Exit"));
@@ -44,8 +47,8 @@ void setup() {
   addDropdown.addOption("Static Object");
   addDropdown.addOption("Force");
 
-  menuButtons.add(new Button(10, 400, 200, 40, "Settings"));
-  menuButtons.add(new Button(10, 450, 200, 40, "Exit"));
+  menuButtons.add(new Button(20, 70, 200, 40, "Settings"));
+  menuButtons.add(new Button(20, 120, 200, 40, "Exit"));
 
   objects.add(new StaticObject(0, 0, 0, 1000, 0, 1000, 0, 0, 0));
   objects.add(new DynamicObject(0, -100, 0, 50, 50, 50, 0, 0, 0));
@@ -57,14 +60,14 @@ void draw() {
   } else if (pauseScreen) {
     hud.displayPauseScreen(pauseButtons);
   } else if (menuScreen) {
-    displaySimulation(false);
+    displaySimulation(false, true);
     hud.displayMenu(menuButtons);
   } else if (simulationScreen) {
     background(100);
     if (!isPaused) {
       updateSimulation();
     }
-    displaySimulation(true);
+    displaySimulation(true, true);
   }
   mouseJustReleased = false;
 }
@@ -103,7 +106,8 @@ void updateSimulation() {
   camera(camX, camY, camZ, camX + cos(camRotX) * sin(camRotY), camY + sin(camRotX), camZ + cos(camRotX) * cos(camRotY), 0, 1, 0);
 }
 
-void displaySimulation(boolean updateHUD) {
+void displaySimulation(boolean updateHUD, boolean showGrid) {
+  background(100);
   //lights();
   fill(150);
 
@@ -111,7 +115,9 @@ void displaySimulation(boolean updateHUD) {
     o.display();
   }
 
-  displayGrid();
+  if (showGrid) {
+    displayGrid();
+  }
 
   if (updateHUD) {
     hud.displaySimulation(simulationButtons, addDropdown, isPaused);
