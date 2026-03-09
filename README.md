@@ -9,6 +9,7 @@ This project will be a calculator/simulation for mechanics in physics. You will 
 
 ### Name Ideas
 - Physis
+- Physion
 
 ### Target Concepts
 - GUI Controls
