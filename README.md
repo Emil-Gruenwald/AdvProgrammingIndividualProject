@@ -27,4 +27,4 @@ This project will be a calculator/simulation for mechanics in physics. You will 
 
 ### UML
 
-![](https://github.com/Emil-Gruenwald/AdvProgrammingIndividualProject/blob/main/images/UML.png?raw=true)
+![](https://github.com/Emil-Gruenwald/AdvProgrammingIndividualProject/blob/main/docs/UML.png?raw=true)
