@@ -21,4 +21,15 @@ class Slider {
         fill(100);
         ellipse(map(currentValue, minValue, maxValue, x, x + width), y + height / 2, height, height);
     }
+
+    void update() {
+        if (isDragging && mouseX >= x && mouseX <= x + width && mouseY >= y && mouseY <= y + height) {
+            float mouseValue = map(mouseX, x, x + width, minValue, maxValue);
+            currentValue = round(mouseValue / step) * step;
+            currentValue = constrain(currentValue, minValue, maxValue);
+            isDragging = true;
+        } else if (mouseJustReleased) {
+            isDragging = false;
+        }
+    }
 }

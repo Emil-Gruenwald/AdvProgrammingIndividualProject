@@ -1,5 +1,7 @@
 public class NaturalForce extends Force {
 
+    String type;
+    
     NaturalForce(String type, float x, float y, float z, float torqueX, float torqueY, float torqueZ) {
         this.type = type;
         this.x = x;
@@ -9,5 +11,4 @@ public class NaturalForce extends Force {
         this.torqueY = torqueY;
         this.torqueZ = torqueZ;
     }
-    String type;
 }

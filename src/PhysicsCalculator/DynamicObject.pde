@@ -1,5 +1,6 @@
 public class DynamicObject extends Object {
     float velocityX, velocityY, velocityZ, omegaX, omegaY, omegaZ;
+    float mass;
 
     ArrayList<Force> forces = new ArrayList<>();
     
@@ -19,12 +20,13 @@ public class DynamicObject extends Object {
         omegaX = 0;
         omegaY = 0;
         omegaZ = 0;
+        mass = 1.0;
     }
 
     public void update() {
         forces.clear();
 
-        forces.add(new NaturalForce("Gravity", 0, 9.81f, 0, 0, 0, 0));
+        forces.add(new NaturalForce("Gravity", 0, mass * 9.81f, 0, 0, 0, 0));
 
         for (Force f : forces) {
             f.applyForce(this);

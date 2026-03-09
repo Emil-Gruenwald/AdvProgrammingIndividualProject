@@ -16,11 +16,15 @@ ArrayList<Button> menuButtons = new ArrayList<>();
 
 ArrayList<Character> keysPressed = new ArrayList<>();
 
-Dropdown addDropdown = new Dropdown(70, 10, 100, 40, "Add ⌄");
+Dropdown addDropdown = new Dropdown(70, 10, 100, 40, "Add");
+Slider timeStepSlider = new Slider(200, 10, 100, 40, 2.0f, 0.1f, 0.1f, 1.0f);
 
 String previousScreen = "pause";
 
 float camX, camY, camZ, camRotX, camRotY;
+
+float simulationSpeed = 1.0;
+float timeStep = 0.01666;
 
 boolean mouseJustReleased = false;
 
@@ -210,7 +214,7 @@ void mouseReleased() {
 }
 
 void mouseDragged() {
-  if (simulationScreen && !isPaused) {
+  if (simulationScreen && !isPaused && !timeStepSlider.isDragging) {
     camRotY += (pmouseX - mouseX) * 0.005;
     camRotX += (pmouseY - mouseY) * -0.005;
   }
