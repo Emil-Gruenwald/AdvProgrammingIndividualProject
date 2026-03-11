@@ -214,7 +214,7 @@ void mouseReleased() {
 }
 
 void mouseDragged() {
-  if (simulationScreen && !isPaused && !timeStepSlider.isDragging) {
+  if (simulationScreen && !isPaused) {
     camRotY += (pmouseX - mouseX) * 0.005;
     camRotX += (pmouseY - mouseY) * -0.005;
   }
