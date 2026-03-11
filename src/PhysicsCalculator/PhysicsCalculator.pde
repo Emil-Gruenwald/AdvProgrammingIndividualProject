@@ -17,7 +17,7 @@ ArrayList<Button> menuButtons = new ArrayList<>();
 ArrayList<Character> keysPressed = new ArrayList<>();
 
 Dropdown addDropdown = new Dropdown(70, 10, 100, 40, "Add");
-Slider timeStepSlider = new Slider(200, 10, 100, 40, 2.0f, 0.1f, 0.1f, 1.0f);
+//Slider timeStepSlider = new Slider(200, 10, 100, 40, 2.0f, 0.1f, 0.1f, 1.0f);
 
 String previousScreen = "pause";
 
