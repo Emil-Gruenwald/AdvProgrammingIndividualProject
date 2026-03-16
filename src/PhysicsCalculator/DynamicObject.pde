@@ -4,13 +4,10 @@ public class DynamicObject extends Object {
 
     ArrayList<Force> forces = new ArrayList<>();
     
-     DynamicObject(float x, float y, float z, float w, float h, float d, float rotX, float rotY, float rotZ) {
+    DynamicObject(float x, float y, float z, float rotX, float rotY, float rotZ, color col, Shape shape) {
         this.x = x;
         this.y = y;
         this.z = z;
-        this.w = w;
-        this.h = h;
-        this.d = d;
         this.rotY = rotY;
         this.rotX = rotX;
         this.rotZ = rotZ;
@@ -21,6 +18,8 @@ public class DynamicObject extends Object {
         omegaY = 0;
         omegaZ = 0;
         mass = 1.0;
+        this.col = col;
+        this.shape = shape;
     }
 
     public void update() {

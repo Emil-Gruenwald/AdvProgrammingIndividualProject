@@ -54,8 +54,8 @@ void setup() {
   menuButtons.add(new Button(20, 70, 200, 40, "Settings"));
   menuButtons.add(new Button(20, 120, 200, 40, "Exit"));
 
-  objects.add(new StaticObject(0, 0, 0, 1000, 0, 1000, 0, 0, 0));
-  objects.add(new DynamicObject(0, -100, 0, 50, 50, 50, 0, 0, 0));
+  objects.add(new StaticObject(0, 0, 0, 0, 0, 0, color(0, 255, 0), new Rectangle(1000, 0, 1000)));
+  objects.add(new DynamicObject(0, -100, 0, 0, 0, 0, color(255, 0, 0), new Rectangle(50, 50, 50)));
 }
 
 void draw() {
