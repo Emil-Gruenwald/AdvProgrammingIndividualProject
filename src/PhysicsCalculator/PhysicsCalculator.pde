@@ -55,7 +55,7 @@ void setup() {
   menuButtons.add(new Button(20, 120, 200, 40, "Exit"));
 
   objects.add(new StaticObject(0, 0, 0, 0, 0, 0, color(0, 255, 0), new Rectangle(1000, 0, 1000)));
-  objects.add(new DynamicObject(0, -100, 0, 0, 0, 0, color(255, 0, 0), new Rectangle(50, 50, 50)));
+  objects.add(new DynamicObject(0, -100, 0, 0, 0, 0, color(255, 0, 0), new Sphere(50)));
 }
 
 void draw() {
@@ -154,6 +154,18 @@ void displayGrid() {
     stroke(200, map(abs(z - camZ), 0, gridRadius, 20, -10));
     line(startX, 0, z, endX, 0, z);
   }
+}
+
+PVector modelToScreen(float x, float y, float z) {
+  PVector screenPos = new PVector();
+  PMatrix3D currCamera = getMatrix(new PMatrix3D());
+  currCamera.translate(-camX, -camY, -camZ);
+  currCamera.rotateX(-camRotX);
+  currCamera.rotateY(-camRotY);
+  currCamera.mult(new PVector(x, y, z), screenPos);
+  screenPos.x = map(screenPos.x / screenPos.z, -1, 1, 0, width);
+  screenPos.y = map(screenPos.y / screenPos.z, -1, 1, height, 0);
+  return screenPos;
 }
 
 void keyPressed() {

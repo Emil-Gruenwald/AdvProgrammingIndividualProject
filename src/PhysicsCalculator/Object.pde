@@ -17,6 +17,9 @@ public abstract class Object {
   }
 
   boolean collidesWith(Object o) {
+
+    
+
     return false;
   }
 }

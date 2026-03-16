@@ -7,7 +7,7 @@ class Sphere extends Shape {
 
   @Override
     void display(float x, float y, float z, float rotX, float rotY, float rotZ) {
-    stroke(0);
+    noStroke();
     pushMatrix();
     translate(x, y, z);
     rotateY(rotY);
@@ -15,6 +15,16 @@ class Sphere extends Shape {
     rotateZ(rotZ);
     sphere(radius);
     popMatrix();
-    noStroke();
+
+    pushMatrix();
+    camera();
+    hint(PApplet.DISABLE_DEPTH_TEST);
+    
+    noFill();
+    stroke(0);
+    circle(modelToScreen(x, y, z).x, modelToScreen(x, y, z).y, radius * 2);
+    
+    hint(PApplet.ENABLE_DEPTH_TEST);
+    popMatrix();
   }
 }
