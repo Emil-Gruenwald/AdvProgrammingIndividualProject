@@ -18,7 +18,11 @@ public abstract class Object {
 
   boolean collidesWith(Object o) {
 
-    
+    if (shape instanceof Rectangle && o.shape instanceof Rectangle) {
+      Rectangle r1 = (Rectangle) shape;
+      Rectangle r2 = (Rectangle) o.shape;
+      return abs(x - o.x) < (r1.width + r2.width) / 2 && abs(y - o.y) < (r1.height + r2.height) / 2 && abs(z - o.z) < (r1.depth + r2.depth) / 2;
+    }
 
     return false;
   }
