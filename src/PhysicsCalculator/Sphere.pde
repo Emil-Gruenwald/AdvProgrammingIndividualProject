@@ -15,16 +15,5 @@ class Sphere extends Shape {
     rotateZ(rotZ);
     sphere(radius);
     popMatrix();
-
-    pushMatrix();
-    camera();
-    hint(PApplet.DISABLE_DEPTH_TEST);
-    
-    noFill();
-    stroke(0);
-    circle(modelToScreen(x, y, z).x, modelToScreen(x, y, z).y, radius * 2);
-    
-    hint(PApplet.ENABLE_DEPTH_TEST);
-    popMatrix();
   }
 }
