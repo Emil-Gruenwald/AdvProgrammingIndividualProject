@@ -16,6 +16,7 @@ class Pyramid extends Shape {
         rotateY(rotY);
         rotateX(rotX);
         rotateZ(rotZ);
+        fill(200);
         beginShape(TRIANGLES);
         for (int i = 0; i < sides; i++) {
             float angle1 = TWO_PI / sides * i;

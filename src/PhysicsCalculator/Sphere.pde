@@ -7,12 +7,16 @@ class Sphere extends Shape {
 
   @Override
     void display(float x, float y, float z, float rotX, float rotY, float rotZ) {
-    noStroke();
     pushMatrix();
     translate(x, y, z);
     rotateY(rotY);
     rotateX(rotX);
     rotateZ(rotZ);
+    // noFill();
+    // stroke(0);
+    // sphere(radius+1);
+    noStroke();
+    fill(200);
     sphere(radius);
     popMatrix();
   }
