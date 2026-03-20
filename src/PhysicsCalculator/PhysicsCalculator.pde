@@ -56,8 +56,8 @@ void setup() {
   menuButtons.add(new Button(20, 120, 200, 40, "Exit"));
 
   objects.add(new StaticObject(0, 0, 0, 0, 0, 0, color(0, 255, 0), new Rectangle(1000, 0, 1000)));
-  objects.add(new DynamicObject(-100, -100, 0, 0, 0, 0, color(255, 0, 0), new Rectangle(50, 50, 50)));
-  objects.add(new DynamicObject(100, -100, 0, 0, 0, 0, color(255, 0, 0), new Sphere(25)));
+  objects.add(new DynamicObject(0, -200, 0, 0, 0, 0, color(255, 0, 0), new Rectangle(50, 50, 50)));
+  objects.add(new DynamicObject(0, -100, 0, 0, 0, 0, color(255, 0, 0), new Sphere(25)));
 
   camX = 0;
   camRotX = 0;
