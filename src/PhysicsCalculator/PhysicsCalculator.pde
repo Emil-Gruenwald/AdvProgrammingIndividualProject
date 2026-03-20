@@ -65,9 +65,7 @@ void setup() {
 
   camZ = -500;
   camY = -100;
-
-  camera(camX, camY, camZ, camX + cos(camRotX) * sin(camRotY), camY + sin(camRotX), camZ + cos(camRotX) * cos(camRotY), 0, 1, 0);
-
+  
 }
 
 void draw() {
@@ -119,7 +117,7 @@ void updateSimulation() {
   if (camRotX >= PI/2) camRotX = PI/2 - 0.01;
   if (camRotX <= -PI/2) camRotX = -PI/2 + 0.01;
 
-  camera(camX, camY, camZ, camX + cos(camRotX) * sin(camRotY), camY + sin(camRotX), camZ + cos(camRotX) * cos(camRotY), 0, 1, 0);
+  //camera(camX, camY, camZ, camX + cos(camRotX) * sin(camRotY), camY + sin(camRotX), camZ + cos(camRotX) * cos(camRotY), 0, 1, 0);
 
   for (Object o : objects) {
     if (o instanceof DynamicObject) {
@@ -130,6 +128,7 @@ void updateSimulation() {
 
 void displaySimulation(boolean updateHUD, boolean showGrid) {
   background(100);
+  camera(camX, camY, camZ, camX + cos(camRotX) * sin(camRotY), camY + sin(camRotX), camZ + cos(camRotX) * cos(camRotY), 0, 1, 0);
   //lights();
   fill(150);
 
