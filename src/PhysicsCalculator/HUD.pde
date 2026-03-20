@@ -45,7 +45,7 @@ public class HUD {
       if (b.isClicked() && b.label.equals("Run Simulation")) {
         pauseScreen = false;
         simulationScreen = true;
-        isPaused = false;
+        isPaused = true;
       } else if (b.isClicked() && b.label.equals("Settings")) {
         previousScreen = "pause";
         settingsScreen = true;
