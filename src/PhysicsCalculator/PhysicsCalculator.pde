@@ -232,7 +232,7 @@ void mousePressed() {
         testY += sin(camRotX);
         for (Object o : objects) {
           if (o.collidesWith(new StaticObject(testX, testY, testZ, 0, 0, 0, color(255), new Sphere(5)))) {
-            isPaused = true;
+            // isPaused = true;
             return;
           }
         }
