@@ -15,9 +15,10 @@ class Sphere extends Shape {
     // noFill();
     // stroke(0);
     // sphere(radius+1);
-    noStroke();
+    stroke(0);
     fill(150);
     sphere(radius);
     popMatrix();
+    noStroke();
   }
 }
