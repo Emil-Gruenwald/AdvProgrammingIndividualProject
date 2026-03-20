@@ -2,12 +2,12 @@ public abstract class Force {
     float x, y, z, torqueX, torqueY, torqueZ;
 
     public void applyForce(DynamicObject o) {
-        o.velocityX += x/o.mass;
-        o.velocityY += y/o.mass;
-        o.velocityZ += z/o.mass;
-        o.omegaX += torqueX;
-        o.omegaY += torqueY;
-        o.omegaZ += torqueZ;
+        o.velocityX += x/o.mass * timeStep;
+        o.velocityY += y/o.mass * timeStep;
+        o.velocityZ += z/o.mass * timeStep;
+        o.omegaX += torqueX * timeStep;
+        o.omegaY += torqueY * timeStep;
+        o.omegaZ += torqueZ * timeStep;
     }
 
     PVector getForceVector() {
