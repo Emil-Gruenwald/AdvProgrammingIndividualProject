@@ -15,7 +15,7 @@ class Rectangle extends Shape {
     rotateY(rotY);
     rotateX(rotX);
     rotateZ(rotZ);
-    fill(200);
+    fill(150);
     box(width, height, depth);
     popMatrix();
     noStroke();

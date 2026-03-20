@@ -56,6 +56,9 @@ void setup() {
 
   objects.add(new StaticObject(0, 0, 0, 0, 0, 0, color(0, 255, 0), new Rectangle(1000, 0, 1000)));
   objects.add(new DynamicObject(0, -100, 0, 0, 0, 0, color(255, 0, 0), new Rectangle(50, 50, 50)));
+
+  camZ = -500;
+  camY = -100;
 }
 
 void draw() {
