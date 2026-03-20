@@ -48,9 +48,11 @@ class Dropdown {
         }
     }
 
-    void press() {
+    boolean press() {
         if (mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h) {
             isOpen = !isOpen;
+            return true;
         }
+        return false;
     }
 }

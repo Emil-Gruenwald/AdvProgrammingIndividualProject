@@ -221,7 +221,22 @@ void keyReleased() {
 }
 
 void mousePressed() {
-  addDropdown.press();
+  if (!addDropdown.press()) {
+    float testX = camX;
+    float testY = camY;
+    float testZ = camZ;
+    for (int i = 0; i < 1000; i++) {
+      testX += sin(camRotY);
+      testZ += cos(camRotY);
+      testY += sin(camRotX);
+      for (Object o : objects) {
+        if (o.collidesWith(new StaticObject(testX, testY, testZ, 0, 0, 0, color(255), new Sphere(5)))) {
+          println("Hit object at " + testX + ", " + testY + ", " + testZ);
+          return;
+        }
+      }
+    }
+  }
 }
 
 void mouseReleased() {
