@@ -35,38 +35,51 @@ public class DynamicObject extends Object {
 
     for (float i = 0; i < abs(velocityX); i += step) {
       x += step * abs(velocityX)/velocityX;
-      if (velocityX != 0 && collidesWith(objects.get(0))) {
-        forces.add(new NaturalForce("Normal", -velocityX * mass, 0, 0, 0, 0, 0));
-        for (Force f : forces) {
-          f.applyForce(this);
+      if (velocityX != 0) {
+        for (Object o : objects) {
+          if (o != this && collidesWith(o)) {
+            forces.add(new NaturalForce("Normal", -velocityX * mass, 0, 0, 0, 0, 0));
+            for (Force f : forces) {
+              f.applyForce(this);
+            }
+            x -= step * abs(velocityX)/velocityX;
+            break;
+          }
         }
-        x -= step * abs(velocityX)/velocityX;
-        break;
       }
     }
 
     for (float i = 0; i < abs(velocityY); i += step) {
       y += step * abs(velocityY)/velocityY;
-      if (velocityY != 0 && collidesWith(objects.get(0))) {
-        forces.add(new NaturalForce("Normal", 0, -velocityY * mass, 0, 0, 0, 0));
-        for (Force f : forces) {
-          f.applyForce(this);
+      if (velocityY != 0) {
+        for (Object o : objects) {
+          if (o != this && collidesWith(o)) {
+            forces.add(new NaturalForce("Normal", 0, -velocityY * mass, 0, 0, 0, 0));
+            for (Force f : forces) {
+              f.applyForce(this);
+            }
+            y -= step * abs(velocityY)/velocityY;
+            break;
+          }
         }
-        y -= step * abs(velocityY)/velocityY;
-        break;
       }
     }
 
     for (float i = 0; i < abs(velocityZ); i += step) {
       z += step * abs(velocityZ)/velocityZ;
-      if (velocityZ != 0 && collidesWith(objects.get(0))) {
-        forces.add(new NaturalForce("Normal", 0, 0, -velocityZ * mass, 0, 0, 0));
-        for (Force f : forces) {
-          f.applyForce(this);
+      if (velocityZ != 0) {
+        for (Object o : objects) {
+          if (o != this && collidesWith(o)) {
+            forces.add(new NaturalForce("Normal", 0, 0, -velocityZ * mass, 0, 0, 0));
+            for (Force f : forces) {
+              f.applyForce(this);
+            }
+            z -= step * abs(velocityZ)/velocityZ;
+            break;
+          }
         }
-        z -= step * abs(velocityZ)/velocityZ;
-        break;
       }
     }
   }
 }
+
