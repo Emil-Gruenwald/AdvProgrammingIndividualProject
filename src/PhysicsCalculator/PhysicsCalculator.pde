@@ -1,3 +1,7 @@
+import bRigid.*;
+import bRigid.test.*;
+import bRigid.util.*;
+
 PImage logo = new PImage();
 
 HUD hud = new HUD();
@@ -253,4 +257,3 @@ void mouseDragged() {
     camRotX += (pmouseY - mouseY) * -0.005;
   }
 }
-
