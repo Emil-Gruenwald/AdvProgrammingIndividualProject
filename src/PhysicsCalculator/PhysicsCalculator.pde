@@ -1,6 +1,8 @@
 import bRigid.*;
-import bRigid.test.*;
 import bRigid.util.*;
+import bRigid.test.*;
+
+BPhysics world;
 
 PImage logo = new PImage();
 
