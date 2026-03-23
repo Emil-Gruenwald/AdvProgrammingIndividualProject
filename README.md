@@ -8,7 +8,7 @@ This project will be a calculator/simulation for mechanics in physics. You will 
 ## How to Run:
 - Download Processing: [Download](https://processing.org/download)
 - Download Library: [Download](https://github.com/djrkohler/bRigid)
-- Move library folder into *Processing/libraries*
+- Move library folder into '''Processing/libraries'''
 - Open the sketch using Processing
 - Use either the run sketch command or shortcut
 
