@@ -1,8 +1,9 @@
 import bRigid.*;
 import bRigid.util.*;
 import bRigid.test.*;
+import javax.vecmath.Vector3f;
 
-BPhysics world;
+BPhysics physics;
 
 PImage logo = new PImage();
 
@@ -44,7 +45,10 @@ void settings() {
 void setup() {
   background(100);
   frameRate(60);
-  surface.setResizable(true);
+
+  physics = new BPhysics();
+  physics.world.setGravity(new Vector3f(0, 9.81, 0));
+  //surface.setResizable(true);
   logo = loadImage("Logo.png");
   textAlign(CENTER);
   textSize(12);
