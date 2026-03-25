@@ -71,7 +71,7 @@ void setup() {
   // objects.add(new DynamicObject(0, -200, 0, 0, 0, 0, color(255, 0, 0), new Rectangle(50, 50, 50), new BBox(this, 1, 15, 60, 15)));
   // objects.add(new DynamicObject(0, -100, 0, 0, 0, 0, color(255, 0, 0), new Sphere(25), new BSphere(this, 2, 0, 0, 0, 20)));
 
-  // objects.add(new StaticObject(color(0, 255, 0), new BBox(this, 1, 15, 1000, 15)));
+  objects.add(new StaticObject(color(0, 255, 0), new BBox(this, 1, 1000, 1, 1000)));
   objects.add(new DynamicObject(color(255, 0, 0), new BSphere(this, 2, 0, -200, 0, 20)));
 
   camX = 0;
@@ -94,7 +94,6 @@ void draw() {
   } else if (simulationScreen) {
     background(100);
     if (!isPaused) {
-      updateSimulation();
       physics.update();
     }
     displaySimulation(true, true);
@@ -102,7 +101,7 @@ void draw() {
   mouseJustReleased = false;
 }
 
-void updateSimulation() {
+void updateCamera() {
   if (keysPressed.contains('W')) {
     camX += 5 * sin(camRotY);
     camZ += 5 * cos(camRotY);
@@ -144,6 +143,7 @@ void updateSimulation() {
 
 void displaySimulation(boolean updateHUD, boolean showGrid) {
   background(100);
+  updateCamera();
   camera(camX, camY, camZ, camX + cos(camRotX) * sin(camRotY), camY + sin(camRotX), camZ + cos(camRotX) * cos(camRotY), 0, 1, 0);
   //lights();
   fill(150);
@@ -264,7 +264,7 @@ void mouseReleased() {
 }
 
 void mouseDragged() {
-  if (simulationScreen && !isPaused && mouseButton == RIGHT) {
+  if (simulationScreen && mouseButton == RIGHT) {
     camRotY += (pmouseX - mouseX) * 0.005;
     camRotX += (pmouseY - mouseY) * -0.005;
   }
