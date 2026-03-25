@@ -26,6 +26,8 @@ ArrayList<Button> menuButtons = new ArrayList<>();
 ArrayList<Character> keysPressed = new ArrayList<>();
 
 Dropdown addDropdown = new Dropdown(70, 10, 100, 40, "Add");
+
+Object selectedObject = null;
 //Slider timeStepSlider = new Slider(200, 10, 100, 40, 2.0f, 0.1f, 0.1f, 1.0f);
 
 String previousScreen = "pause";
@@ -160,6 +162,10 @@ void displaySimulation(boolean updateHUD, boolean showGrid) {
   if (updateHUD) {
     hud.displaySimulation(simulationButtons, addDropdown, isPaused);
   }
+
+  if (selectedObject != null) {
+    selectedObject.displayBRigid();
+  }
 }
 
 void displayGrid() {
@@ -188,6 +194,26 @@ void displayGrid() {
     stroke(200, map(abs(z - camZ), 0, gridRadius, 20, -10));
     line(startX, 0, z, endX, 0, z);
   }
+}
+
+boolean isMouseOver(Object o) {
+  if (o.type.equals("Box")) {
+    BBox b = (BBox) o.body;
+    Vector3f pos = b.getPosition();
+    if (mouseX > pos.x - o.width/2 && mouseX < pos.x + o.width/2 && mouseY > pos.y - o.height/2 && mouseY < pos.y + o.height/2) {
+      return true;
+    }
+  } else if (o.type.equals("Sphere")) {
+    BSphere s = (BSphere) o.body;
+    Vector3f pos = s.getPosition();
+    float screenX = map(pos.x, camX - width/2, camX + width/2, 0, width);
+    float screenY = map(pos.y, camY - height/2, camY + height/2, 0, height);
+    float screenRadius = map(o.radius, 0, 1000, 0, width);
+    if (dist(mouseX, mouseY, screenX, screenY) < screenRadius) {
+      return true;
+    }
+  }
+  return false;
 }
 
 void keyPressed() {
@@ -242,20 +268,14 @@ void keyReleased() {
 void mousePressed() {
   if (mouseButton == LEFT) {
     if (!addDropdown.press()) {
-      // float testX = camX;
-      // float testY = camY;
-      // float testZ = camZ;
-      // for (int i = 0; i < 1000; i++) {
-      //   testX += sin(camRotY);
-      //   testZ += cos(camRotY);
-      //   testY += sin(camRotX);
-      //   for (Object o : objects) {
-      //     if (o.collidesWith(new StaticObject(testX, testY, testZ, 0, 0, 0, color(255), new Sphere(5)))) {
-      //       // isPaused = true;
-      //       return;
-      //     }
-      //   }
-      // }
+      if (simulationScreen) {
+        for (Object o : objects) {
+          if (isMouseOver(o)) {
+            selectedObject = o;
+            break;
+          }
+        }
+      }
     }
   }
 }
