@@ -150,6 +150,7 @@ void displaySimulation(boolean updateHUD, boolean showGrid) {
 
   for (Object o : objects) {
     o.display();
+    // o.displayBRigid();
   }
 
   if (showGrid) {
