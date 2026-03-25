@@ -1,12 +1,7 @@
 public class StaticObject extends Object {
-  StaticObject(float x, float y, float z, float rotX, float rotY, float rotZ, color col, Shape shape) {
-    this.x = x;
-    this.y = y;
-    this.z = z;
-    this.rotY = rotY;
-    this.rotX = rotX;
-    this.rotZ = rotZ;
+  StaticObject(color col, BObject body) {
     this.col = col;
-    this.shape = shape;
+    this.body = body;
+    // body.setStatic(true);
   }
 }

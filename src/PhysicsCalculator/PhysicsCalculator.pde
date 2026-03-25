@@ -9,6 +9,8 @@ PImage logo = new PImage();
 
 HUD hud = new HUD();
 
+int fps = 60;
+
 boolean pauseScreen = true;
 boolean isPaused = true;
 boolean settingsScreen = false;
@@ -44,10 +46,10 @@ void settings() {
 
 void setup() {
   background(100);
-  frameRate(60);
+  frameRate(fps);
 
   physics = new BPhysics();
-  physics.world.setGravity(new Vector3f(0, 9.81, 0));
+  physics.world.setGravity(new Vector3f(0, 9.81 * fps, 0));
   //surface.setResizable(true);
   logo = loadImage("Logo.png");
   textAlign(CENTER);
@@ -65,9 +67,12 @@ void setup() {
   menuButtons.add(new Button(20, 70, 200, 40, "Settings"));
   menuButtons.add(new Button(20, 120, 200, 40, "Exit"));
 
-  objects.add(new StaticObject(0, 0, 0, 0, 0, 0, color(0, 255, 0), new Rectangle(1000, 0, 1000)));
-  objects.add(new DynamicObject(0, -200, 0, 0, 0, 0, color(255, 0, 0), new Rectangle(50, 50, 50)));
-  objects.add(new DynamicObject(0, -100, 0, 0, 0, 0, color(255, 0, 0), new Sphere(25)));
+  // objects.add(new StaticObject(0, 0, 0, 0, 0, 0, color(0, 255, 0), new Rectangle(1000, 0, 1000)));
+  // objects.add(new DynamicObject(0, -200, 0, 0, 0, 0, color(255, 0, 0), new Rectangle(50, 50, 50), new BBox(this, 1, 15, 60, 15)));
+  // objects.add(new DynamicObject(0, -100, 0, 0, 0, 0, color(255, 0, 0), new Sphere(25), new BSphere(this, 2, 0, 0, 0, 20)));
+
+  // objects.add(new StaticObject(color(0, 255, 0), new BBox(this, 1, 15, 1000, 15)));
+  objects.add(new DynamicObject(color(255, 0, 0), new BSphere(this, 2, 0, -200, 0, 20)));
 
   camX = 0;
   camRotX = 0;
@@ -90,6 +95,7 @@ void draw() {
     background(100);
     if (!isPaused) {
       updateSimulation();
+      physics.update();
     }
     displaySimulation(true, true);
   }
@@ -129,11 +135,11 @@ void updateSimulation() {
 
   //camera(camX, camY, camZ, camX + cos(camRotX) * sin(camRotY), camY + sin(camRotX), camZ + cos(camRotX) * cos(camRotY), 0, 1, 0);
 
-  for (Object o : objects) {
-    if (o instanceof DynamicObject) {
-      ((DynamicObject) o).update();
-    }
-  }
+  // for (Object o : objects) {
+  //   if (o instanceof DynamicObject) {
+  //     ((DynamicObject) o).update();
+  //   }
+  // }
 }
 
 void displaySimulation(boolean updateHUD, boolean showGrid) {
