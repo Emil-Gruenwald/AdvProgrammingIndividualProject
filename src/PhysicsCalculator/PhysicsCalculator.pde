@@ -28,6 +28,7 @@ ArrayList<Character> keysPressed = new ArrayList<>();
 Dropdown addDropdown = new Dropdown(70, 10, 100, 40, "Add");
 
 Object selectedObject = null;
+Textbox selectedTextbox = null;
 //Slider timeStepSlider = new Slider(200, 10, 100, 40, 2.0f, 0.1f, 0.1f, 1.0f);
 
 String previousScreen = "pause";
@@ -38,6 +39,7 @@ float simulationSpeed = 1.0;
 float timeStep = 0.01666;
 
 boolean mouseJustReleased = false;
+boolean typing = false;
 
 void settings() {
   //size(640, 360, P3D);
@@ -221,39 +223,57 @@ void keyPressed() {
   if (!keysPressed.contains(upperKey)) {
     keysPressed.add(upperKey);
   }
-  if (keyCode == ENTER) {
-    if (pauseScreen) {
-      pauseScreen = false;
-      simulationScreen = true;
-      isPaused = false;
-    }
-  }
-  if (keyCode == ESC) {
-    key = 0;
-    if (pauseScreen) {
-      exit();
-    } else if (simulationScreen) {
-      simulationScreen = false;
-      menuScreen = true;
-      isPaused = true;
-    } else if (menuScreen) {
-      menuScreen = false;
-      simulationScreen = true;
-      isPaused = false;
-    } else if (settingsScreen) {
-      settingsScreen = false;
-      if (previousScreen.equals("pause")) {
-        pauseScreen = true;
-      } else if (previousScreen.equals("menu")) {
-        menuScreen = true;
+  if (key == CODED) {
+    if (keyCode == ENTER) {
+      if (typing) {
+        selectedTextbox.enter();
+      } else if (pauseScreen) {
+        pauseScreen = false;
+        simulationScreen = true;
+        isPaused = false;
       }
     }
-  }
-  if (keyCode == SHIFT) {
-    keysPressed.add('⇧');
-  }
-  if ((key == 'P' || key == 'p') && simulationScreen) {
-    isPaused = !isPaused;
+    if (keyCode == ESC) {
+      key = 0;
+      if (typing) {
+        selectedTextbox.escape();
+      } else if (pauseScreen) {
+        exit();
+      } else if (simulationScreen) {
+        simulationScreen = false;
+        menuScreen = true;
+        isPaused = true;
+      } else if (menuScreen) {
+        menuScreen = false;
+        simulationScreen = true;
+        isPaused = false;
+      } else if (settingsScreen) {
+        settingsScreen = false;
+        if (previousScreen.equals("pause")) {
+          pauseScreen = true;
+        } else if (previousScreen.equals("menu")) {
+          menuScreen = true;
+        }
+      }
+    }
+
+    if (keyCode == SHIFT) {
+      keysPressed.add('⇧');
+    }
+
+    if (keyCode == BACKSPACE && typing) {
+      if (selectedTextbox.label.length() > 0) {
+        selectedTextbox.label = selectedTextbox.label.substring(0, selectedTextbox.label.length() - 1);
+      }
+    }
+  } else if (typing) {
+    if ((key >= '0' && key <= '9') || key == '.' || key == '-') {
+      selectedTextbox.label += key;
+    }
+  } else {
+    if ((key == 'P' || key == 'p') && simulationScreen) {
+      isPaused = !isPaused;
+    }
   }
 }
 
