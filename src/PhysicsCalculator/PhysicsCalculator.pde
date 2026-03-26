@@ -166,7 +166,7 @@ void displaySimulation(boolean updateHUD, boolean showGrid) {
   }
 
   if (selectedObject != null) {
-    selectedObject.displayBRigid();
+    hud.displayObjectInfo();
   }
 }
 
@@ -223,50 +223,52 @@ void keyPressed() {
   if (!keysPressed.contains(upperKey)) {
     keysPressed.add(upperKey);
   }
-  if (key == CODED) {
-    if (keyCode == ENTER) {
-      if (typing) {
-        selectedTextbox.enter();
-      } else if (pauseScreen) {
-        pauseScreen = false;
-        simulationScreen = true;
-        isPaused = false;
-      }
+
+  if (keyCode == ENTER) {
+    if (typing) {
+      selectedTextbox.enter();
+    } else if (pauseScreen) {
+      pauseScreen = false;
+      simulationScreen = true;
+      isPaused = false;
     }
-    if (keyCode == ESC) {
-      key = 0;
-      if (typing) {
-        selectedTextbox.escape();
-      } else if (pauseScreen) {
-        exit();
-      } else if (simulationScreen) {
-        simulationScreen = false;
+  }
+  if (keyCode == ESC) {
+    key = 0;
+    if (typing) {
+      selectedTextbox.escape();
+    } else if (selectedObject != null) {
+      selectedObject = null;
+    } else if (pauseScreen) {
+      exit();
+    } else if (simulationScreen) {
+      simulationScreen = false;
+      menuScreen = true;
+      isPaused = true;
+    } else if (menuScreen) {
+      menuScreen = false;
+      simulationScreen = true;
+      isPaused = false;
+    } else if (settingsScreen) {
+      settingsScreen = false;
+      if (previousScreen.equals("pause")) {
+        pauseScreen = true;
+      } else if (previousScreen.equals("menu")) {
         menuScreen = true;
-        isPaused = true;
-      } else if (menuScreen) {
-        menuScreen = false;
-        simulationScreen = true;
-        isPaused = false;
-      } else if (settingsScreen) {
-        settingsScreen = false;
-        if (previousScreen.equals("pause")) {
-          pauseScreen = true;
-        } else if (previousScreen.equals("menu")) {
-          menuScreen = true;
-        }
       }
     }
+  }
 
-    if (keyCode == SHIFT) {
-      keysPressed.add('⇧');
-    }
+  if (keyCode == SHIFT) {
+    keysPressed.add('⇧');
+  }
 
-    if (keyCode == BACKSPACE && typing) {
-      if (selectedTextbox.label.length() > 0) {
-        selectedTextbox.label = selectedTextbox.label.substring(0, selectedTextbox.label.length() - 1);
-      }
+  if (keyCode == BACKSPACE && typing) {
+    if (selectedTextbox.label.length() > 0) {
+      selectedTextbox.label = selectedTextbox.label.substring(0, selectedTextbox.label.length() - 1);
     }
-  } else if (typing) {
+  }
+  if (typing) {
     if ((key >= '0' && key <= '9') || key == '.' || key == '-') {
       selectedTextbox.label += key;
     }

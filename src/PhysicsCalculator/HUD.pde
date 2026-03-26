@@ -108,4 +108,20 @@ public class HUD {
     hint(PApplet.ENABLE_DEPTH_TEST);
     popMatrix();
   }
+
+  void displayObjectInfo() {
+    pushMatrix();
+    camera();
+    hint(PApplet.DISABLE_DEPTH_TEST);
+
+    background(100);
+
+    fill(200);
+    textSize(20);
+    rect(10, 10, 300, 200);
+    fill(0);
+    text("Object Info", 50, 25);
+    hint(PApplet.ENABLE_DEPTH_TEST);
+    popMatrix();
+  }
 }
