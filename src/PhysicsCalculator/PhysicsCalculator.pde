@@ -22,10 +22,11 @@ ArrayList<Button> pauseButtons = new ArrayList<>();
 ArrayList<Button> simulationButtons = new ArrayList<>();
 ArrayList<Button> settingsButtons = new ArrayList<>();
 ArrayList<Button> menuButtons = new ArrayList<>();
+ArrayList<Textbox> textboxes = new ArrayList<>();
 
 ArrayList<Character> keysPressed = new ArrayList<>();
 
-Dropdown addDropdown = new Dropdown(70, 10, 100, 40, "Add");
+Dropdown addDropdown = new Dropdown(70, 15, 100, 40, "Add");
 
 Object selectedObject = null;
 Textbox selectedTextbox = null;
@@ -252,6 +253,7 @@ void keyPressed() {
       selectedTextbox.escape();
     } else if (selectedObject != null) {
       selectedObject = null;
+      textboxes.clear();
     } else if (pauseScreen) {
       exit();
     } else if (simulationScreen) {
@@ -307,6 +309,10 @@ void mousePressed() {
         for (Object o : objects) {
           if (isMouseOver(o)) {
             selectedObject = o;
+            textboxes.add(new Textbox(10, 10, 80, 30, String.format("%.1f", o.mass)));
+            textboxes.add(new Textbox(10, 50, 80, 30, String.format("%.1f", o.x)));
+            textboxes.add(new Textbox(10, 90, 80, 30, String.format("%.1f", o.y)));
+            textboxes.add(new Textbox(10, 130, 80, 30, String.format("%.1f", o.z)));
             break;
           }
         }

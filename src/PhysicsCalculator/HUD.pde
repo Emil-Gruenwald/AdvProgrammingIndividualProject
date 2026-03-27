@@ -114,11 +114,17 @@ public class HUD {
     camera();
     hint(PApplet.DISABLE_DEPTH_TEST);
 
-    fill(200);
+    fill(125);
+    noStroke();
     textSize(20);
     rect(10, 10, 300, 200);
     fill(0);
-    text("Object Info", 50, 25);
+    text("Object Info", 65, 25);
+    textSize(12);
+    for (Textbox t : textboxes) {
+      t.update();
+      t.display();
+    }
     hint(PApplet.ENABLE_DEPTH_TEST);
     popMatrix();
   }
