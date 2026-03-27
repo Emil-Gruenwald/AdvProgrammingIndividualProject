@@ -232,6 +232,14 @@ boolean isMouseOver(Object o) {
   return false;
 }
 
+void sortObjectsByDepth() {
+  objects.sort((o1, o2) -> {
+    float z1 = screenZ(o1.x, o1.y, o1.z);
+    float z2 = screenZ(o2.x, o2.y, o2.z);
+    return Float.compare(z2, z1);
+  });
+}
+
 void keyPressed() {
   char upperKey = Character.toUpperCase(key);
   if (!keysPressed.contains(upperKey)) {
@@ -306,13 +314,14 @@ void mousePressed() {
   if (mouseButton == LEFT) {
     if (!addDropdown.press()) {
       if (simulationScreen) {
+        sortObjectsByDepth();
         for (Object o : objects) {
           if (isMouseOver(o)) {
             selectedObject = o;
-            textboxes.add(new Textbox(200, 50, 80, 30, String.format("%.1f", o.mass)));
-            textboxes.add(new Textbox(200, 90, 80, 30, String.format("%.1f", o.x)));
-            textboxes.add(new Textbox(200, 130, 80, 30, String.format("%.1f", o.y)));
-            textboxes.add(new Textbox(200, 170, 80, 30, String.format("%.1f", o.z)));
+            textboxes.add(new Textbox(200, 50, 80, 30, String.format("%.1f", o.body.getMass())));
+            textboxes.add(new Textbox(200, 90, 80, 30, String.format("%.1f", o.body.getPosition().x)));
+            textboxes.add(new Textbox(200, 130, 80, 30, String.format("%.1f", o.body.getPosition().y)));
+            textboxes.add(new Textbox(200, 170, 80, 30, String.format("%.1f", o.body.getPosition().z)));
             break;
           }
         }
