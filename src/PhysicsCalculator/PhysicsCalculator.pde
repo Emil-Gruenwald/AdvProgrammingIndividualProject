@@ -309,10 +309,10 @@ void mousePressed() {
         for (Object o : objects) {
           if (isMouseOver(o)) {
             selectedObject = o;
-            textboxes.add(new Textbox(10, 10, 80, 30, String.format("%.1f", o.mass)));
-            textboxes.add(new Textbox(10, 50, 80, 30, String.format("%.1f", o.x)));
-            textboxes.add(new Textbox(10, 90, 80, 30, String.format("%.1f", o.y)));
-            textboxes.add(new Textbox(10, 130, 80, 30, String.format("%.1f", o.z)));
+            textboxes.add(new Textbox(200, 50, 80, 30, String.format("%.1f", o.mass)));
+            textboxes.add(new Textbox(200, 90, 80, 30, String.format("%.1f", o.x)));
+            textboxes.add(new Textbox(200, 130, 80, 30, String.format("%.1f", o.y)));
+            textboxes.add(new Textbox(200, 170, 80, 30, String.format("%.1f", o.z)));
             break;
           }
         }

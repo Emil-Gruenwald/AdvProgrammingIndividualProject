@@ -117,7 +117,7 @@ public class HUD {
     fill(125);
     noStroke();
     textSize(20);
-    rect(10, 10, 300, 200);
+    rect(10, 10, 320, 200);
     fill(0);
     text("Object Info", 65, 25);
     textSize(12);

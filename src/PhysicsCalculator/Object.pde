@@ -49,6 +49,12 @@ public abstract class Object {
       popMatrix();
       noStroke();
     }
+
+    if (this instanceof DynamicObject) {
+      x = body.getPosition().x;
+      y = body.getPosition().y;
+      z = body.getPosition().z;
+    }
   }
 
   void displayBRigid() {
