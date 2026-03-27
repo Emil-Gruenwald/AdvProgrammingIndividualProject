@@ -114,8 +114,6 @@ public class HUD {
     camera();
     hint(PApplet.DISABLE_DEPTH_TEST);
 
-    background(100);
-
     fill(200);
     textSize(20);
     rect(10, 10, 300, 200);
