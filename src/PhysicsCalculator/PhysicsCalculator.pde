@@ -202,16 +202,29 @@ boolean isMouseOver(Object o) {
   if (o.type.equals("Box")) {
     BBox b = (BBox) o.body;
     Vector3f pos = b.getPosition();
-    if (mouseX > pos.x - o.width/2 && mouseX < pos.x + o.width/2 && mouseY > pos.y - o.height/2 && mouseY < pos.y + o.height/2) {
+    float sx = screenX(pos.x, pos.y, pos.z);
+    float sy = screenY(pos.x, pos.y, pos.z);
+
+    float size = max(o.width, o.height);
+    float edgeX = screenX(pos.x + size/2, pos.y, pos.z);
+    float edgeY = screenY(pos.x + size/2, pos.y, pos.z);
+    float sr = dist(sx, sy, edgeX, edgeY);
+
+    if (dist(mouseX, mouseY, sx, sy) < sr) {
       return true;
     }
   } else if (o.type.equals("Sphere")) {
     BSphere s = (BSphere) o.body;
     Vector3f pos = s.getPosition();
-    float screenX = map(pos.x, camX - width/2, camX + width/2, 0, width);
-    float screenY = map(pos.y, camY - height/2, camY + height/2, 0, height);
-    float screenRadius = map(o.radius, 0, 1000, 0, width);
-    if (dist(mouseX, mouseY, screenX, screenY) < screenRadius) {
+
+    float sx = screenX(pos.x, pos.y, pos.z);
+    float sy = screenY(pos.x, pos.y, pos.z);
+
+    float edgeX = screenX(pos.x + o.radius, pos.y, pos.z);
+    float edgeY = screenY(pos.x + o.radius, pos.y, pos.z);
+    float sr = dist(sx, sy, edgeX, edgeY);
+
+    if (dist(mouseX, mouseY, sx, sy) < sr) {
       return true;
     }
   }
