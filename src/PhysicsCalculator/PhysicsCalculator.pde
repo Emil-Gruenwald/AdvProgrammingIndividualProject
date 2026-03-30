@@ -11,6 +11,10 @@ HUD hud = new HUD();
 
 int fps = 60;
 
+boolean showGrid = true;
+boolean showOutlines = true;
+boolean lights = false;
+
 boolean pauseScreen = true;
 boolean isPaused = true;
 boolean settingsScreen = false;
@@ -95,14 +99,14 @@ void draw() {
   } else if (pauseScreen) {
     hud.displayPauseScreen(pauseButtons);
   } else if (menuScreen) {
-    displaySimulation(false, true);
+    displaySimulation(false, showGrid);
     hud.displayMenu(menuButtons);
   } else if (simulationScreen) {
     background(100);
     if (!isPaused && selectedObject == null) {
       physics.update();
     }
-    displaySimulation(true, true);
+    displaySimulation(true, showGrid);
   }
   mouseJustReleased = false;
 }
@@ -151,11 +155,13 @@ void displaySimulation(boolean updateHUD, boolean showGrid) {
   background(100);
   updateCamera();
   camera(camX, camY, camZ, camX + cos(camRotX) * sin(camRotY), camY + sin(camRotX), camZ + cos(camRotX) * cos(camRotY), 0, 1, 0);
-  //lights();
+  if (lights) {
+    lights();
+  }
   fill(150);
 
   for (Object o : objects) {
-    o.display();
+    o.display(showOutlines);
     // o.displayBRigid();
   }
 

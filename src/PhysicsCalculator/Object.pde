@@ -12,7 +12,7 @@ public abstract class Object {
 
   BObject body;
 
-  void display() {
+  void display(boolean showOutlines) {
 
     Transform trans = body.rigidBody.getWorldTransform(new Transform());
     Matrix4f mat = new Matrix4f();
@@ -29,7 +29,11 @@ public abstract class Object {
         0, 0, 0, 1
         );
       fill(col);
-      stroke(0);
+      if (showOutlines) {
+        stroke(0);
+      } else {
+        noStroke();
+      }
       box(width, height, depth);
       popMatrix();
       noStroke();
@@ -44,7 +48,11 @@ public abstract class Object {
         0, 0, 0, 1
         );
       fill(col);
-      stroke(0);
+      if (showOutlines) {
+        stroke(0);
+      } else {
+        noStroke();
+      }
       sphere(radius);
       popMatrix();
       noStroke();
