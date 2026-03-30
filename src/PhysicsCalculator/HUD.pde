@@ -146,6 +146,10 @@ public class HUD {
     }
     selectedObject.body.setPosition(textboxes.get(0).value, textboxes.get(1).value, textboxes.get(2).value);
     selectedObject.body.setMass(textboxes.get(3).value);
+    selectedObject.x = textboxes.get(0).value;
+    selectedObject.y = textboxes.get(1).value;
+    selectedObject.z = textboxes.get(2).value;
+    selectedObject.mass = textboxes.get(3).value;
     hint(PApplet.ENABLE_DEPTH_TEST);
     popMatrix();
   }

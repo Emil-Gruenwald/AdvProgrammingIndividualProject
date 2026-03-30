@@ -77,7 +77,7 @@ void setup() {
   // objects.add(new DynamicObject(0, -200, 0, 0, 0, 0, color(255, 0, 0), new Rectangle(50, 50, 50), new BBox(this, 1, 15, 60, 15)));
   // objects.add(new DynamicObject(0, -100, 0, 0, 0, 0, color(255, 0, 0), new Sphere(25), new BSphere(this, 2, 0, 0, 0, 20)));
 
-  objects.add(new StaticObject(0, 0, 0, 1000, 1, 1000, color(0, 255, 0)));
+  objects.add(new StaticObject(0, 10, 0, 1000, 1, 1000, color(0, 255, 0)));
   objects.add(new DynamicObject(0, -100, 0, 50, 2, color(255, 0, 0)));
   objects.add(new DynamicObject(10, -200, 0, 50, 50, 50, 2, color(255, 0, 0)));
 
