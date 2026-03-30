@@ -34,6 +34,12 @@ Dropdown addDropdown = new Dropdown(70, 15, 100, 40, "Add");
 
 Object selectedObject = null;
 Textbox selectedTextbox = null;
+float previousScaleX = 1.0f;
+float previousScaleY = 1.0f;
+float previousScaleZ = 1.0f;
+float previousRotX = 0.0f;
+float previousRotY = 0.0f;
+float previousRotZ = 0.0f;
 //Slider timeStepSlider = new Slider(200, 10, 100, 40, 2.0f, 0.1f, 0.1f, 1.0f);
 
 String previousScreen = "pause";
@@ -96,6 +102,22 @@ void setup() {
 
   camZ = -500;
   camY = -100;
+}
+
+float[] eulerToQuaternion(float roll, float pitch, float yaw) {
+  float cr = cos(roll * 0.5);
+  float sr = sin(roll * 0.5);
+  float cp = cos(pitch * 0.5);
+  float sp = sin(pitch * 0.5);
+  float cy = cos(yaw * 0.5);
+  float sy = sin(yaw * 0.5);
+
+  float w = cr * cp * cy - sr * sp * sy;
+  float x = sr * cp * cy + cr * sp * sy;
+  float y = cr * sp * cy + sr * cp * sy;
+  float z = cr * cp * sy - sr * sp * cy;
+
+  return new float[]{w, x, y, z};
 }
 
 void draw() {
@@ -325,7 +347,7 @@ void keyReleased() {
 void mousePressed() {
   if (mouseButton == LEFT) {
     if (!addDropdown.press()) {
-      if (simulationScreen) {
+      if (simulationScreen && selectedObject == null) {
         selectedObject = null;
         textboxes.clear();
 
@@ -343,10 +365,22 @@ void mousePressed() {
 
         if (pick != null) {
           selectedObject = pick;
+          previousScaleX = 1.0f;
+          previousScaleY = 1.0f;
+          previousScaleZ = 1.0f;
+          previousRotX = 0.0f;
+          previousRotY = 0.0f;
+          previousRotZ = 0.0f;
           textboxes.add(new Textbox(200, 90, 80, 30, String.format("%.1f", pick.body.getPosition().x)));
           textboxes.add(new Textbox(200, 130, 80, 30, String.format("%.1f", pick.body.getPosition().y)));
           textboxes.add(new Textbox(200, 170, 80, 30, String.format("%.1f", pick.body.getPosition().z)));
           textboxes.add(new Textbox(200, 50, 80, 30, String.format("%.1f", pick.body.getMass())));
+          textboxes.add(new Textbox(200, 210, 80, 30, "1.0"));
+          textboxes.add(new Textbox(200, 250, 80, 30, "1.0"));
+          textboxes.add(new Textbox(200, 290, 80, 30, "1.0"));
+          textboxes.add(new Textbox(200, 330, 80, 30, "0.0"));
+          textboxes.add(new Textbox(200, 370, 80, 30, "0.0"));
+          textboxes.add(new Textbox(200, 410, 80, 30, "0.0"));
         }
       }
     }

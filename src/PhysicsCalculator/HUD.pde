@@ -160,24 +160,36 @@ public class HUD {
     fill(125);
     noStroke();
     textSize(20);
-    rect(10, 10, 320, 200);
+    rect(10, 10, 320, 450);
     fill(0);
     text("Object Info", 65, 25);
     textSize(12);
+    text("Mass:", 50, 50);
     text("X:", 50, 90);
     text("Y:", 50, 130);
     text("Z:", 50, 170);
-    text("Mass:", 50, 50);
+    text("ScaleX:", 50, 210);
+    text("ScaleY:", 50, 250);
+    text("ScaleZ:", 50, 290);
+    text("RotX:", 50, 330);
+    text("RotY:", 50, 370);
+    text("RotZ:", 50, 410);
     for (Textbox t : textboxes) {
       t.update();
       t.display();
     }
 
-    if (selectedObject != null && textboxes.size() >= 4) {
+    if (selectedObject != null && textboxes.size() >= 10) {
       float nx = textboxes.get(0).value;
       float ny = textboxes.get(1).value;
       float nz = textboxes.get(2).value;
       float nm = textboxes.get(3).value;
+      float nsx = textboxes.get(4).value;
+      float nsy = textboxes.get(5).value;
+      float nsz = textboxes.get(6).value;
+      float nrx = textboxes.get(7).value;
+      float nry = textboxes.get(8).value;
+      float nrz = textboxes.get(9).value;
 
       if (selectedObject.body.getPosition().x != nx || selectedObject.body.getPosition().y != ny || selectedObject.body.getPosition().z != nz) {
         selectedObject.body.setPosition(nx, ny, nz);
@@ -188,6 +200,45 @@ public class HUD {
       if (selectedObject.body.getMass() != nm) {
         selectedObject.body.setMass(nm);
         selectedObject.mass = nm;
+      }
+      if (selectedObject.type.equals("Box")) {
+        if (nsx != previousScaleX) {
+          selectedObject.width *= nsx / previousScaleX;
+          previousScaleX = nsx;
+        }
+        if (nsy != previousScaleY) {
+          selectedObject.height *= nsy / previousScaleY;
+          previousScaleY = nsy;
+        }
+        if (nsz != previousScaleZ) {
+          selectedObject.depth *= nsz / previousScaleZ;
+          previousScaleZ = nsz;
+        }
+      } else if (selectedObject.type.equals("Sphere")) {
+        if (nsx != previousScaleX) {
+          selectedObject.radius *= nsx / previousScaleX;
+          previousScaleX = nsx;
+        }
+      }
+
+      if (nrx != previousRotX || nry != previousRotY || nrz != previousRotZ) {
+        float[] q = eulerToQuaternion(nrx * PI / 180, nry * PI / 180, nrz * PI / 180);
+        float qw = q[0];
+        float qx = q[1];
+        float qy = q[2];
+        float qz = q[3];
+        float angle = 2 * acos(qw);
+        float s = sqrt(1 - qw * qw);
+        Vector3f axis;
+        if (s < 0.0001f) {
+          axis = new Vector3f(1, 0, 0);
+        } else {
+          axis = new Vector3f(qx / s, qy / s, qz / s);
+        }
+        selectedObject.body.setRotation(axis, angle);
+        previousRotX = nrx;
+        previousRotY = nry;
+        previousRotZ = nrz;
       }
     }
 
