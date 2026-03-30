@@ -41,10 +41,12 @@ public class Textbox extends Button {
         if (leftButton.isClicked()) {
             value -= 10.0;
             label = String.format("%.1f", value);
+            updateValue();
         }
         if (rightButton.isClicked()) {
             value += 10.0;
             label = String.format("%.1f", value);
+            updateValue(); 
         }
 
     }
@@ -60,11 +62,16 @@ public class Textbox extends Button {
         try {
             value = Float.parseFloat(label);
             label = String.format("%.1f", value);
+            updateValue();
         } catch (NumberFormatException e) {
             label = tempLabel;
         }
         selected = false;
         typing = false;
         selectedTextbox = null;
+    }
+
+    float updateValue() {
+        return value;
     }
 }
