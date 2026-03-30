@@ -99,7 +99,7 @@ void draw() {
     hud.displayMenu(menuButtons);
   } else if (simulationScreen) {
     background(100);
-    if (!isPaused) {
+    if (!isPaused && selectedObject == null) {
       physics.update();
     }
     displaySimulation(true, true);
