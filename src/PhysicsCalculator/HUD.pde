@@ -25,6 +25,21 @@ public class HUD {
     addDropdown.update();
     addDropdown.display();
 
+    for (Button b : addDropdown.options) {
+      if (b.isClicked()) {
+        String option = b.label;
+        if (option.equals("Dynamic Cube")) {
+          objects.add(new DynamicObject(0, -100, 0, 50, 50, 50, 1, color(255, 0, 0)));
+        } else if (option.equals("Dynamic Sphere")) {
+          objects.add(new DynamicObject(0, -100, 0, 50, 1, color(255, 0, 0)));
+        } else if (option.equals("Static Cube")) {
+          objects.add(new StaticObject(0, -100, 0, 50, 50, 50, color(0, 255, 0)));
+        } else if (option.equals("Static Sphere")) {
+          objects.add(new StaticObject(0, -100, 0, 50, color(0, 255, 0)));
+        }
+      }
+    }
+
     hint(PApplet.ENABLE_DEPTH_TEST);
     popMatrix();
   }

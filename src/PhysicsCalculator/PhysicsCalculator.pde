@@ -65,9 +65,10 @@ void setup() {
   pauseButtons.add(new Button(10, 400, 200, 40, "Settings"));
   pauseButtons.add(new Button(10, 450, 200, 40, "Exit"));
 
-  addDropdown.addOption("Dynamic Object");
-  addDropdown.addOption("Static Object");
-  addDropdown.addOption("Force");
+  addDropdown.addOption("Dynamic Cube");
+  addDropdown.addOption("Dynamic Sphere");
+  addDropdown.addOption("Static Cube");
+  addDropdown.addOption("Static Sphere");
 
   menuButtons.add(new Button(20, 70, 200, 40, "Settings"));
   menuButtons.add(new Button(20, 120, 200, 40, "Exit"));
