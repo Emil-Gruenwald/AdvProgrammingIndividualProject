@@ -144,12 +144,25 @@ public class HUD {
       t.update();
       t.display();
     }
-    selectedObject.body.setPosition(textboxes.get(0).value, textboxes.get(1).value, textboxes.get(2).value);
-    selectedObject.body.setMass(textboxes.get(3).value);
-    selectedObject.x = textboxes.get(0).value;
-    selectedObject.y = textboxes.get(1).value;
-    selectedObject.z = textboxes.get(2).value;
-    selectedObject.mass = textboxes.get(3).value;
+
+    if (selectedObject != null && textboxes.size() >= 4) {
+      float nx = textboxes.get(0).value;
+      float ny = textboxes.get(1).value;
+      float nz = textboxes.get(2).value;
+      float nm = textboxes.get(3).value;
+
+      if (selectedObject.body.getPosition().x != nx || selectedObject.body.getPosition().y != ny || selectedObject.body.getPosition().z != nz) {
+        selectedObject.body.setPosition(nx, ny, nz);
+        selectedObject.x = nx;
+        selectedObject.y = ny;
+        selectedObject.z = nz;
+      }
+      if (selectedObject.body.getMass() != nm) {
+        selectedObject.body.setMass(nm);
+        selectedObject.mass = nm;
+      }
+    }
+
     hint(PApplet.ENABLE_DEPTH_TEST);
     popMatrix();
   }

@@ -315,18 +315,27 @@ void mousePressed() {
   if (mouseButton == LEFT) {
     if (!addDropdown.press()) {
       if (simulationScreen) {
-        sortObjectsByDepth();
+        selectedObject = null;
+        textboxes.clear();
+
+        Object pick = null;
+        float bestZ = Float.POSITIVE_INFINITY;
         for (Object o : objects) {
           if (isMouseOver(o)) {
-            selectedObject = o;
-            textboxes.clear();
-            textboxes.add(new Textbox(200, 90, 80, 30, String.format("%.1f", o.body.getPosition().x)));
-            textboxes.add(new Textbox(200, 130, 80, 30, String.format("%.1f", o.body.getPosition().y)));
-            textboxes.add(new Textbox(200, 170, 80, 30, String.format("%.1f", o.body.getPosition().z)));
-
-            textboxes.add(new Textbox(200, 50, 80, 30, String.format("%.1f", o.body.getMass())));
-            break;
+            float z = screenZ(o.body.getPosition().x, o.body.getPosition().y, o.body.getPosition().z);
+            if (pick == null || z < bestZ) {
+              pick = o;
+              bestZ = z;
+            }
           }
+        }
+
+        if (pick != null) {
+          selectedObject = pick;
+          textboxes.add(new Textbox(200, 90, 80, 30, String.format("%.1f", pick.body.getPosition().x)));
+          textboxes.add(new Textbox(200, 130, 80, 30, String.format("%.1f", pick.body.getPosition().y)));
+          textboxes.add(new Textbox(200, 170, 80, 30, String.format("%.1f", pick.body.getPosition().z)));
+          textboxes.add(new Textbox(200, 50, 80, 30, String.format("%.1f", pick.body.getMass())));
         }
       }
     }
