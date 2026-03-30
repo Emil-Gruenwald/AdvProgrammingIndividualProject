@@ -117,8 +117,36 @@ public class HUD {
     // timeStepSlider.update();
     // timeStepSlider.display();
     for (Button b : settingsButtons) {
+      if (b.label.startsWith("Show Grid")) {
+        b.label = "Show Grid: " + (showGrid ? "ON" : "OFF");
+      } else if (b.label.startsWith("Show Outlines")) {
+        b.label = "Show Outlines: " + (showOutlines ? "ON" : "OFF");
+      } else if (b.label.startsWith("Lights")) {
+        b.label = "Lights: " + (lights ? "ON" : "OFF");
+      }
+
       b.update();
       b.display();
+
+      if (b.isClicked()) {
+        if (b.label.startsWith("Show Grid")) {
+          showGrid = !showGrid;
+          b.label = "Show Grid: " + (showGrid ? "ON" : "OFF");
+        } else if (b.label.startsWith("Show Outlines")) {
+          showOutlines = !showOutlines;
+          b.label = "Show Outlines: " + (showOutlines ? "ON" : "OFF");
+        } else if (b.label.startsWith("Lights")) {
+          lights = !lights;
+          b.label = "Lights: " + (lights ? "ON" : "OFF");
+        } else if (b.label.equals("Back")) {
+          settingsScreen = false;
+          if (previousScreen.equals("pause")) {
+            pauseScreen = true;
+          } else if (previousScreen.equals("menu")) {
+            menuScreen = true;
+          }
+        }
+      }
     }
     hint(PApplet.ENABLE_DEPTH_TEST);
     popMatrix();

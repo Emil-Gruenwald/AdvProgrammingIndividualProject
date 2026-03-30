@@ -77,6 +77,11 @@ void setup() {
   menuButtons.add(new Button(20, 70, 200, 40, "Settings"));
   menuButtons.add(new Button(20, 120, 200, 40, "Exit"));
 
+  settingsButtons.add(new Button(10, 80, 220, 40, "Show Grid: ON"));
+  settingsButtons.add(new Button(10, 130, 220, 40, "Show Outlines: ON"));
+  settingsButtons.add(new Button(10, 180, 220, 40, "Lights: OFF"));
+  settingsButtons.add(new Button(10, 230, 220, 40, "Back"));
+
   // objects.add(new StaticObject(0, 0, 0, 0, 0, 0, color(0, 255, 0), new Rectangle(1000, 0, 1000)));
   // objects.add(new DynamicObject(0, -200, 0, 0, 0, 0, color(255, 0, 0), new Rectangle(50, 50, 50), new BBox(this, 1, 15, 60, 15)));
   // objects.add(new DynamicObject(0, -100, 0, 0, 0, 0, color(255, 0, 0), new Sphere(25), new BSphere(this, 2, 0, 0, 0, 20)));
