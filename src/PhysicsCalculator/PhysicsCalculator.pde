@@ -319,10 +319,12 @@ void mousePressed() {
         for (Object o : objects) {
           if (isMouseOver(o)) {
             selectedObject = o;
-            textboxes.add(new Textbox(200, 50, 80, 30, String.format("%.1f", o.body.getMass())));
+            textboxes.clear();
             textboxes.add(new Textbox(200, 90, 80, 30, String.format("%.1f", o.body.getPosition().x)));
             textboxes.add(new Textbox(200, 130, 80, 30, String.format("%.1f", o.body.getPosition().y)));
             textboxes.add(new Textbox(200, 170, 80, 30, String.format("%.1f", o.body.getPosition().z)));
+
+            textboxes.add(new Textbox(200, 50, 80, 30, String.format("%.1f", o.body.getMass())));
             break;
           }
         }

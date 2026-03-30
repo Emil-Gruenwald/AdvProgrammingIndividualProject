@@ -136,10 +136,16 @@ public class HUD {
     fill(0);
     text("Object Info", 65, 25);
     textSize(12);
+    text("X:", 50, 90);
+    text("Y:", 50, 130);
+    text("Z:", 50, 170);
+    text("Mass:", 50, 50);
     for (Textbox t : textboxes) {
       t.update();
       t.display();
     }
+    selectedObject.body.setPosition(textboxes.get(0).value, textboxes.get(1).value, textboxes.get(2).value);
+    selectedObject.body.setMass(textboxes.get(3).value);
     hint(PApplet.ENABLE_DEPTH_TEST);
     popMatrix();
   }
