@@ -30,6 +30,3 @@ This project will be a calculator/simulation for mechanics in physics. You will 
 - Necassary math libraries
 - Graphics
 
-### UML
-
-![](https://github.com/Emil-Gruenwald/AdvProgrammingIndividualProject/blob/main/docs/UML.png?raw=true)
